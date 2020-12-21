@@ -1,0 +1,24 @@
+.left-side {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #545c64;
+    .el-menu {
+        width: 100%;
+        .el-menu-item,
+        .el-submenu__title,
+        .el-menu-item-group__title {
+            text-align: left;
+            min-width: auto;
+        }
+    }
+    .logo-container {
+        padding: 10px 0;
+        p {
+            font-size: 18px;
+            color: #fff;
+            padding-left: 10px;
+        }
+    }
+}
