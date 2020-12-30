@@ -1,11 +1,11 @@
 .defect-file-list {
-    padding: 0 24px;
-    height: 54px;
-    width: 100%;
-    box-sizing: border-box;
-    box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-    background: #fff;
-    .el-dropdown-link {
-        cursor: pointer;
+    position: relative;
+    h1{
+        margin: 0;
     }
+    .addfile{
+        position: absolute;
+        right: 0;
+    }
+    
 }

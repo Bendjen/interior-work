@@ -62,7 +62,7 @@ router.beforeEach((to, from, next) => {
                         next();
                     })
                     .catch((err) => {
-                        console.log(err);
+                        window.$login.clear();
                         next();
                         router.push({ name: "base/login" });
                     });

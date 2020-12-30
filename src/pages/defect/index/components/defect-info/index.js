@@ -1,21 +1,67 @@
-import { mapState, mapMutations } from "vuex";
+import SERVICE from "@/pages/defect/service";
+import DefectDetail from "../defect-detail";
+
 export default {
-    name: "file-list",
+    name: "defect-info",
     data() {
-        return {};
+        return {
+            tab: 0,
+            chapterList: [],
+            defectList: [],
+            page: 1,
+            total: 0,
+            pageCount: 10,
+        };
+    },
+    props: {
+        id: { default: "", type: String },
+        title: { default: "", type: String },
     },
 
-    computed: {
-        ...mapState(["user"]),
+    components: { DefectDetail },
+
+    watch: {
+        id() {
+            this.fetchFileChapter();
+        },
     },
 
     methods: {
-        ...mapMutations(["logout"]),
-        handleCommand(command) {
-            if (command == "logout") {
-                window.$login.clear();
-                this.$router.push("/base/login");
-            }
+        fetchFileChapter() {
+            SERVICE.fetchFileChapter({
+                pid: this.id,
+            }).then((res) => {
+                this.chapterList = res.resdata;
+                this.tab = "0";
+                this.tabClick();
+            });
+        },
+        fetchDetail() {
+            this.$emit();
+        },
+        backToFileList() {
+            this.$emit("back");
+        },
+        tabClick() {
+            this.defectList = [];
+            this.page = 1;
+            this.total = 0;
+            this.pageCount = 10;
+            this.pageChange(1);
+        },
+        pageChange(page) {
+            SERVICE.fetchDefectList({
+                pid: this.chapterList[this.tab].id,
+                "page.start": page,
+                "page.count": this.pageCount,
+            }).then((res) => {
+                this.defectList = res.resdata;
+                this.page = res.reshead.page.start;
+                this.total = parseInt(res.reshead.page.total);
+            });
+        },
+        openDetail(url) {
+            this.$refs.defectDetail.open(url);
         },
     },
 };

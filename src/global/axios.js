@@ -20,9 +20,10 @@ export default function axiosInit() {
             if (!config.hideLoading) {
                 if (!loadingList[config.url]) {
                     loadingList[config.url] = Loading.service({
-                        fullscreen: true,
+                        fullscreen: false,
                         lock: true,
                         text: "请稍候",
+                        customClass: "request-loading",
                     });
                 }
 
@@ -69,8 +70,8 @@ export default function axiosInit() {
             } else {
                 if (typeof data == "string") {
                     if (data.includes("登录")) {
-                        // Store.commit("setLogin", 0);
-                        // window.$login.clear();
+                        Store.commit("setLogin", 0);
+                        window.$login.clear();
                         location.href = `//${location.host}/#/base/login`;
                     } else if (!!data) {
                         alert(data);

@@ -5,17 +5,18 @@
             <p>陆海内业管理平台</p>
         </div>
         <el-menu
-            default-active="2"
+            default-active="index"
             class="el-menu-vertical-demo"
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b"
+            @select="selectMenu"
         >
             <el-submenu v-for="item in menu" :index="item.id" :key="item.id">
                 <template slot="title">{{ item.title }}</template>
                 <el-menu-item
                     v-for="sub in item.children"
-                    :index="`${item.id}-${sub.id}`"
+                    :index="sub.id"
                     :key="sub.id"
                     >{{ sub.title }}</el-menu-item
                 >

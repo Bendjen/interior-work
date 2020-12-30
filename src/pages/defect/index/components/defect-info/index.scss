@@ -1,16 +1,17 @@
-.defect-file-list {
+.defect-info {
     .el-table--border th {
         background: #66b1ff;
         color: #fff;
     }
-    .icon {
-        width: 30px;
-        height: 30px;
-        vertical-align: -0.15em;
-        fill: currentColor;
-        overflow: hidden;
-    }
     .el-tabs__content {
         padding-left: 40px;
     }
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
 }

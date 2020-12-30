@@ -55,6 +55,27 @@ body {
     margin: 24px;
     border-radius: 2px;
 }
+
+.request-loading {
+    background-color: rgba(0,0,0,0.6) !important;
+    display: flex;
+    justify-content: center;
+    .el-loading-spinner{
+        background: #fff;
+        width: auto!important;
+        padding: 24px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .el-loading-text{
+        padding: 0 15px;
+    }
+}
+// .el-loading-mask{
+//     background-color: none !important;
+// }
 </style>
 
 <script>

@@ -10,5 +10,14 @@ export default {
                 },
             },
         },
+        {
+            id: "rule",
+            meta: {
+                title: "规则配置",
+                parent: {
+                    title: "缺陷分析",
+                },
+            },
+        },
     ],
 };

@@ -1,4 +1,3 @@
-import SERVICE from "../service";
 import FileList from "./components/file-list";
 import DefectInfo from "./components/defect-info";
 
@@ -50,7 +49,8 @@ export default {
                 },
             ],
             detailList: [{ title: "华南小桥大桥", list: [] }],
-           
+            currentFileId: "",
+            currentFileName: "",
         };
     },
 
@@ -67,8 +67,11 @@ export default {
         backToFileList() {
             this.pageIndex = 1;
         },
-        linkTodefectList() {
+
+        swicthDetail(item) {
             this.pageIndex = 2;
+            this.currentFileId = item.id;
+            this.currentFileName = item.detail.filename;
         },
     },
 };

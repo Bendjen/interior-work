@@ -1,6 +1,21 @@
 <template>
     <div class="defect-file-list">
         <h1 flex="main:center">文件解析列表</h1>
+        <el-upload
+            action="/jtyh/qlqxgl/busiqlqxglwj/importfile"
+            accept=".docx"
+            name="qxFiles"
+            :show-file-list="false"
+            :on-preview="handlePreview"
+        >
+            <el-button
+                class="addfile"
+                type="primary"
+                icon="el-icon-plus"
+                circle
+            ></el-button>
+        </el-upload>
+
         <el-table
             :data="fileList"
             height="600"
@@ -33,7 +48,7 @@
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button type="text" size="small">下载原件</el-button>
+                    <el-button type="text" size="small">重新解析</el-button>
                     <el-button type="text" size="small">导出报告</el-button>
                     <el-button type="text" size="small">删除</el-button>
                 </template>
@@ -43,7 +58,7 @@
                     <el-button
                         type="text"
                         size="small"
-                        @click="switchDetail"
+                        @click="switchDetail(scope)"
                         >查看缺陷详情</el-button
                     >
                 </template>
