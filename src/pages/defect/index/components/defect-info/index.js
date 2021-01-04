@@ -5,12 +5,12 @@ export default {
     name: "defect-info",
     data() {
         return {
-            tab: 0,
+            tab: "0",
             chapterList: [],
             defectList: [],
             page: 1,
             total: 0,
-            pageCount: 10,
+            pageCount: 8,
         };
     },
     props: {
@@ -51,7 +51,7 @@ export default {
         },
         pageChange(page) {
             SERVICE.fetchDefectList({
-                pid: this.chapterList[this.tab].id,
+                pid: this.chapterList[parseInt(this.tab)].id,
                 "page.start": page,
                 "page.count": this.pageCount,
             }).then((res) => {

@@ -1,11 +1,18 @@
 .defect-file-list {
     position: relative;
-    h1{
+    h1 {
         margin: 0;
     }
-    .addfile{
-        position: absolute;
-        right: 0;
+    // .addfile {
+    //     position: absolute;
+    //     right: 0;
+    // }
+
+    .el-table--border th {
+        background: #66b1ff;
+        color: #fff;
     }
-    
+    .el-tabs__content {
+        padding-left: 40px;
+    }
 }

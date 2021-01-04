@@ -5,6 +5,7 @@ export default {
     data() {
         return {
             dialogVisible: false,
+            info: [],
         };
     },
 
@@ -15,7 +16,7 @@ export default {
             requestCreator({ fetch: `/jtyh${url}` })
                 .fetch()
                 .then((res) => {
-                    console.log(res);
+                    this.info = res.resdata;
                     this.dialogVisible = true;
                 });
         },

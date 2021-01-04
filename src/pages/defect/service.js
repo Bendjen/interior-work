@@ -3,4 +3,6 @@ export default requestCreator({
     fetchFileList: "/jtyh/qlqxgl/busiqlqxglwj/getwjlist",
     fetchFileChapter: "/jtyh/qlqxgl/busiqlqxglwj/getzjlist",
     fetchDefectList: "/jtyh/qlqxgl/busiqlqxglwj/getqxlist",
+    deleteFile: "/jtyh//qlqxgl/busiqlqxglwj/delete",
+    uploadFile: "/jtyh/qlqxgl/busiqlqxglwj/importfile",
 });

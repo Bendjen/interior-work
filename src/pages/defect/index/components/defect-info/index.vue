@@ -16,22 +16,50 @@
                 :label="item.detail.bridgename"
             >
                 <el-table :data="defectList" border style="width:100%;">
-                    <el-table-column label="缺陷名称" width="150">
-                        <template slot-scope="scope">{{
-                            scope.row.detail.qxname
-                        }}</template>
+                    <el-table-column prop="fileName" label="所属位置" fixed>
+                        <template slot-scope="scope">
+                            {{ scope.row.detail.parttype }}
+                        </template>
                     </el-table-column>
-                    <el-table-column label="病害描述">
-                        <template slot-scope="scope">{{
-                            scope.row.detail.diseasedesc
-                        }}</template>
+                    <el-table-column prop="fileName" label="所属部位" fixed>
+                        <template slot-scope="scope">
+                            {{ scope.row.detail.partdesc }}
+                        </template>
                     </el-table-column>
-                    <el-table-column label="处置方案">
-                        <template slot-scope="scope">{{
-                            scope.row.detail.czfaid_cn
-                        }}</template>
+                    <el-table-column prop="fileName" label="缺陷简称">
+                        <template slot-scope="scope">
+                            {{ scope.row.detail.qxname }}
+                        </template>
                     </el-table-column>
-                    <el-table-column label="操作" width="100">
+                    <el-table-column
+                        prop="fileName"
+                        label="缺陷描述"
+                        width="260"
+                    >
+                        <template slot-scope="scope">
+                            {{ scope.row.detail.diseasedesc }}
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="fileName" label="参数信息">
+                        <template slot-scope="scope">
+                            {{ scope.row.detail.paramval }}
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                        prop="fileName"
+                        label="处置方案"
+                        width="200"
+                    >
+                        <template slot-scope="scope">
+                            {{ scope.row.detail.czfaid_cn }}
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="fileName" label="规则码匹配">
+                        <template slot-scope="scope">
+                            {{ scope.row.detail.cfgid_cn }}
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="操作" width="60">
                         <template slot-scope="scope">
                             <el-button
                                 type="text"
