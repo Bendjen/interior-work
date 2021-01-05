@@ -1,11 +1,14 @@
 <template>
     <div class="defect-rule">
-        <h1>规则配置</h1>
-        <div flex="main:start cross:center">
-            <el-button type="text" @click="addRule" flex="cross:center">
-                <i class="el-icon-plus" style="font-size:24px"></i>
+        <p class="page-title" flex="main:justify cross:center">
+            <span>规则配置</span>
+            <el-button type="text" @click="addRule">
+                <div flex="cross:center">
+                    <i class="el-icon-plus" style="font-size:18px"></i>
+                    <span style="font-size:16px">添加规则</span>
+                </div>
             </el-button>
-        </div>
+        </p>
         <el-table :data="tableData" height="600" border style="width:100%;">
             <el-table-column label="黑名单">
                 <template slot-scope="scope">

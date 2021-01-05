@@ -1,20 +1,43 @@
 .defect-info {
-    .el-table--border th {
-        background: #66b1ff;
-        color: #fff;
+    .page-title {
+        margin-bottom: 30px;
     }
+
     .el-tabs__content {
-        padding-left: 40px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
-    .el-table__body td {
-        font-size: 12px;
+
+    .returnIcon {
+        // position: absolute;
+        // left: 48px;
+        span {
+            font-size: 18px;
+        }
+    }
+    .el-tabs__header {
+        max-height: 650px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        border: 1px solid #e5e5e5;
+    }
+
+    .emptyBox {
+        height: 400px;
+        i {
+            font-size: 60px;
+        }
+        span {
+            font-size: 26px;
+            padding-top: 20px;
+            color: #909399;
+        }
     }
 }
 
-.icon {
-    width: 30px;
-    height: 30px;
-    vertical-align: -0.15em;
+.icon-empty {
+    width: 400px;
+    height: 400px;
     fill: currentColor;
     overflow: hidden;
 }

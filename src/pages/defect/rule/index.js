@@ -17,7 +17,11 @@ export default {
 
     components: {},
 
-    mounted() {},
+    mounted() {
+        SERVICE.fetchRuleList().then((res) => {
+            console.log(res);
+        });
+    },
 
     methods: {
         addTag(line, key) {

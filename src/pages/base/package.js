@@ -7,6 +7,12 @@ export default {
                 requireAuth: false,
             },
         },
+        {
+            id: "safeguard",
+            meta: {
+                requireAuth: false,
+            },
+        },
         { id: "home" },
     ],
 };

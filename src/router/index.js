@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "@/pages/base/home";
+import Safeguard from "@/pages/base/safeguard";
 import Store from "@/store";
 // import Login from "@/pages/login";
 // import Defect from "@/pages/defect-analysis/index";
@@ -16,7 +16,11 @@ const routes = [
     {
         path: "/",
         name: "Home",
-        component: Home,
+        component: Safeguard,
+    },
+    {
+        path: "*",
+        component: Safeguard,
     },
 ];
 

@@ -17,15 +17,15 @@ export default {
                         },
                     ],
                 },
-                // {
-                //     title: "安全检查",
-                //     id: "safe-check",
-                //     children: [
-                //         { title: "工地配置", id: "project" },
-                //         { title: "人员配置", id: "person" },
-                //         { title: "报告管理", id: "report" },
-                //     ],
-                // },
+                {
+                    title: "安全检查",
+                    id: "safe-check",
+                    children: [
+                        { title: "数据上报", id: "project" },
+                        { title: "参数配置", id: "person" },
+                        { title: "报告管理", id: "report" },
+                    ],
+                },
             ],
         };
     },

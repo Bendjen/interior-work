@@ -1,3 +1,4 @@
+import { saveAs } from "file-saver";
 import SERVICE from "@/pages/defect/service";
 
 export default {
@@ -9,7 +10,6 @@ export default {
             total: 0,
             pageCount: 10,
             date: "",
-            file: null,
             uploadForm: {
                 supplier: "",
                 remark: "",
@@ -53,7 +53,10 @@ export default {
                 });
             });
         },
+
         uploadSuccess(res) {
+            this.$refs.uploader.clearFiles();
+            this.dialogVisible = false;
             if (res.status == "ng") {
                 this.$notify.error({
                     title: "错误",
@@ -61,7 +64,7 @@ export default {
                 });
             } else {
                 this.$notify.success({
-                    title: "上次成功",
+                    title: "上传成功",
                     message: "所选文件已成功上传",
                 });
                 this.fetchFileList(1);
@@ -69,20 +72,39 @@ export default {
         },
 
         fileChange(file, fileList) {
-            this.file = file;
-            this.dialogVisible = true;
+            if (fileList.length > 0) {
+                this.dialogVisible = true;
+            }
         },
         onSubmit() {
-            // const fileReader = new FileReader();
-            // fileReader.readAsArrayBuffer(this.file);
-            // fileReader.onload = (e) => {
-            //     console.log(e.target.result);
-            // };
-            console.log(new Blob([this.file]))
-            SERVICE.uploadFile({
-                qxFiles: new Blob([this.file]),
+            this.$refs.uploader.submit();
+        },
+        updateAnalyse(id) {
+            this.$confirm("缺陷解析将根据当前规则重新生成并覆盖原数据，是否继续？").then(() => {
+                SERVICE.updateConfig({
+                    type: 1,
+                    tid: id,
+                }).then((res) => {
+                    this.$notify.success({
+                        title: "更新成功",
+                        message: "所选文件已重新解析",
+                    });
+                });
+            });
+           
+        },
+        exportReport(id) {
+            SERVICE.exportfile({
+                tid: id,
             }).then((res) => {
-                console.log(res);
+                saveAs(
+                    `/jtyh/mobile/busisafetycheck/download/${res.resdata.id}`,
+                    res.resdata.filename
+                );
+                this.$notify.success({
+                    title: "更新成功",
+                    message: "所选文件已重新解析",
+                });
             });
         },
     },

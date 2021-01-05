@@ -20,5 +20,8 @@ export default {
                     this.dialogVisible = true;
                 });
         },
+        save() {
+            this.dialogVisible = false;
+        },
     },
 };

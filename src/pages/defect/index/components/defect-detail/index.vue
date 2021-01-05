@@ -18,12 +18,11 @@
                     ></el-input>
                 </el-form-item>
             </template>
-
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit">保存</el-button>
-                <el-button @click="dialogVisible = false">取消</el-button>
-            </el-form-item>
         </el-form>
+        <div flex="main:center cross:center">
+            <el-button type="primary" @click="save">保存</el-button>
+            <el-button @click="dialogVisible = false">取消</el-button>
+        </div>
     </el-dialog>
 </template>
 <style lang="scss" src="./index.scss"></style>

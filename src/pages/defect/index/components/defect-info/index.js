@@ -26,10 +26,17 @@ export default {
         },
     },
 
+    computed: {
+        chapterId() {
+            return this.chapterList[parseInt(this.tab)].id;
+        },
+    },
+
     methods: {
         fetchFileChapter() {
             SERVICE.fetchFileChapter({
                 pid: this.id,
+                "page.count": 999,
             }).then((res) => {
                 this.chapterList = res.resdata;
                 this.tab = "0";
@@ -46,12 +53,11 @@ export default {
             this.defectList = [];
             this.page = 1;
             this.total = 0;
-            this.pageCount = 10;
             this.pageChange(1);
         },
         pageChange(page) {
             SERVICE.fetchDefectList({
-                pid: this.chapterList[parseInt(this.tab)].id,
+                pid: this.chapterId,
                 "page.start": page,
                 "page.count": this.pageCount,
             }).then((res) => {
@@ -62,6 +68,22 @@ export default {
         },
         openDetail(url) {
             this.$refs.defectDetail.open(url);
+        },
+        updateChapter() {
+            this.$confirm(
+                "缺陷解析将根据当前规则重新生成并覆盖原数据，是否继续？"
+            ).then(() => {
+                SERVICE.updateConfig({
+                    type: 2,
+                    tid: this.chapterId,
+                }).then((res) => {
+                    this.$notify.success({
+                        title: "更新成功",
+                        message: "当前章节已更新",
+                    });
+                    this.pageChange(this.page);
+                });
+            });
         },
     },
 };

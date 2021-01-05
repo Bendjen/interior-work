@@ -3,7 +3,7 @@
         <div class="login-container">
             <div flex="cross:center main:center" class="logo-container">
                 <img src="@/assets/logo.png" width="64" />
-                <h1>陆海内业管理平台</h1>
+                <h1>陆海数据中心</h1>
             </div>
             <el-form ref="form" :model="form" label-width="80px">
                 <el-form-item label="账号">

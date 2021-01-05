@@ -6,6 +6,7 @@
     background: #545c64;
     .el-menu {
         width: 100%;
+        margin-top: 15px;
         .el-menu-item,
         .el-submenu__title,
         .el-menu-item-group__title {
@@ -15,10 +16,13 @@
     }
     .logo-container {
         padding: 10px 0;
+        padding-left: 12px;
+        border-bottom: 1px solid #757d86;
         p {
-            font-size: 18px;
+            font-size: 20px;
             color: #fff;
             padding-left: 10px;
+            letter-spacing: 1px;
         }
     }
 }

@@ -1,8 +1,7 @@
 <template>
     <div class="defect-file-list">
-        <h1 flex="main:center">文件解析列表</h1>
-
-        <div flex="main:start cross:center" style="margin:25px 0">
+        <p class="page-title">文件解析列表</p>
+        <div flex="main:start cross:center" style="margin-bottom:15px">
             <el-date-picker
                 v-model="date"
                 type="monthrange"
@@ -19,9 +18,8 @@
                 :show-file-list="false"
                 :on-success="uploadSuccess"
                 :on-change="fileChange"
-                :before-upload="beforeUpload"
+                :data="uploadForm"
                 :auto-upload="false"
-                :http-request="httpRequest"
                 ref="uploader"
             >
                 <el-button>上传文件</el-button>
@@ -29,18 +27,31 @@
         </div>
 
         <el-table :data="fileList" border style="width:100%;">
-            <el-table-column prop="fileName" label="文件名" width="400">
+            <el-table-column prop="fileName" label="缺陷文件名" >
                 <template slot-scope="scope">
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#interior-word"></use>
                     </svg>
-                    <span style="padding-left:5px;">{{
-                        scope.row.detail.filename
-                    }}</span>
+                    <el-button
+                        type="text"
+                        size="small"
+                        @click="switchDetail(scope)"
+                    >
+                        <span style="padding-left:5px;">{{
+                            scope.row.detail.filename
+                        }}</span>
+                    </el-button>
                 </template>
             </el-table-column>
 
-            <el-table-column prop="supplier" label="提供方">
+            <el-table-column prop="supplier" label="最后编辑时间">
+                <template slot-scope="scope">
+                    <span style="padding-left:5px;">{{
+                        scope.row.detail.editdate || "--"
+                    }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column prop="supplier" label="文件提供方">
                 <template slot-scope="scope">
                     <span style="padding-left:5px;">{{
                         scope.row.detail.provider || "--"
@@ -61,17 +72,23 @@
                     }}</span>
                 </template>
             </el-table-column> -->
-            <el-table-column label="操作" width="200">
+            <el-table-column label="操作" width="300" align="center">
                 <template slot-scope="scope">
                     <el-button
-                        type="text"
+                        type="success"
                         size="small"
-                        @click="switchDetail(scope)"
-                        >查看缺陷详情</el-button
+                        @click="exportReport(scope.row.id)"
+                        >导出报告</el-button
                     >
-                    <el-button type="text" size="small">重新解析</el-button>
                     <el-button
-                        type="text"
+                        type="warning"
+                        size="small"
+                        @click="updateAnalyse(scope.row.id)"
+                        >缺陷解析</el-button
+                    >
+
+                    <el-button
+                        type="danger"
                         size="small"
                         @click="deleteFile(scope)"
                         >删除</el-button
@@ -92,18 +109,28 @@
             >
             </el-pagination>
         </div>
-        <el-dialog title="填写文件信息" :visible.sync="dialogVisible" width="450px">
+        <el-dialog
+            title="填写文件信息"
+            :visible.sync="dialogVisible"
+            width="450px"
+        >
             <el-form ref="form" :model="uploadForm" label-width="80px">
                 <el-form-item label="提供方">
-                    <el-input v-model="uploadForm.supplier" style="width:240px"></el-input>
+                    <el-input
+                        v-model="uploadForm.supplier"
+                        style="width:240px"
+                    ></el-input>
                 </el-form-item>
                 <el-form-item label="备注">
-                    <el-input v-model="uploadForm.remark"  style="width:240px"></el-input>
+                    <el-input
+                        v-model="uploadForm.remark"
+                        style="width:240px"
+                    ></el-input>
                 </el-form-item>
             </el-form>
             <div flex="main:center cross:center">
                 <el-button type="primary" @click="onSubmit">上传</el-button>
-                <el-button>取消</el-button>
+                <el-button @click="dialogVisible = false">取消</el-button>
             </div>
         </el-dialog>
     </div>
