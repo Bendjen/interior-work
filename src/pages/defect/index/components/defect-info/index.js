@@ -61,7 +61,11 @@ export default {
                 "page.start": page,
                 "page.count": this.pageCount,
             }).then((res) => {
-                this.defectList = res.resdata;
+                let serializeList = Object.values(
+                    _.groupBy(res.resdata, (item) => item.detail.partdesc)
+                );
+
+                this.defectList = serializeList;
                 this.page = res.reshead.page.start;
                 this.total = parseInt(res.reshead.page.total);
             });
@@ -76,6 +80,22 @@ export default {
                 SERVICE.updateConfig({
                     type: 2,
                     tid: this.chapterId,
+                }).then((res) => {
+                    this.$notify.success({
+                        title: "更新成功",
+                        message: "当前章节已更新",
+                    });
+                    this.pageChange(this.page);
+                });
+            });
+        },
+        updateItem(id) {
+            this.$confirm(
+                "缺陷解析将根据当前规则重新生成并覆盖原数据，是否继续？"
+            ).then(() => {
+                SERVICE.updateConfig({
+                    type: 3,
+                    tid: id,
                 }).then((res) => {
                     this.$notify.success({
                         title: "更新成功",

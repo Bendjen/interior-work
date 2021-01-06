@@ -27,7 +27,7 @@
         </div>
 
         <el-table :data="fileList" border style="width:100%;">
-            <el-table-column prop="fileName" label="缺陷文件名" >
+            <el-table-column prop="fileName" label="缺陷文件名"  width="360">
                 <template slot-scope="scope">
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#interior-word"></use>
@@ -43,14 +43,8 @@
                     </el-button>
                 </template>
             </el-table-column>
-
-            <el-table-column prop="supplier" label="最后编辑时间">
-                <template slot-scope="scope">
-                    <span style="padding-left:5px;">{{
-                        scope.row.detail.editdate || "--"
-                    }}</span>
-                </template>
-            </el-table-column>
+ 
+           
             <el-table-column prop="supplier" label="文件提供方">
                 <template slot-scope="scope">
                     <span style="padding-left:5px;">{{
@@ -72,6 +66,13 @@
                     }}</span>
                 </template>
             </el-table-column> -->
+             <el-table-column prop="supplier" label="最后编辑时间" align="center"  width="170">
+                <template slot-scope="scope">
+                    <span style="padding-left:5px;">{{
+                        scope.row.detail.editdate || "--"
+                    }}</span>
+                </template>
+            </el-table-column>
             <el-table-column label="操作" width="300" align="center">
                 <template slot-scope="scope">
                     <el-button

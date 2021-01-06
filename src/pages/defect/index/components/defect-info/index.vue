@@ -23,61 +23,131 @@
                     :name="index.toString()"
                     :label="item.detail.bridgename"
                 >
-                    <el-table :data="defectList" border style="width:100%;">
-                        <el-table-column prop="fileName" label="所属位置" fixed>
-                            <template slot-scope="scope">
-                                {{ scope.row.detail.parttype }}
+                    <table class="table" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <td rowspan="2">部位位置</td>
+                                <td rowspan="2">缺陷简称</td>
+                                <td rowspan="2">缺陷描述</td>
+                                <td rowspan="1" colspan="3">处置方案</td>
+                                <td rowspan="2" width="60">采用规则</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">工程名称</td>
+                                <td rowspan="1">对应方法</td>
+                                <td rowspan="1" width="60">工程用量</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-for="(item, index) in defectList">
+                                <tr :key="item.id">
+                                    <td
+                                        :rowspan="
+                                            item.detail.jsonCzfa.length || 1
+                                        "
+                                    >
+                                        {{ item.detail.partdesc }}
+                                    </td>
+                                    <td
+                                        :rowspan="
+                                            item.detail.jsonCzfa.length || 1
+                                        "
+                                    >
+                                        {{ item.detail.qxname }}
+                                    </td>
+                                    <td
+                                        :rowspan="
+                                            item.detail.jsonCzfa.length || 1
+                                        "
+                                    >
+                                        {{ item.detail.diseasedesc }}
+                                    </td>
+
+                                    <!-- 处置方案 -->
+
+                                    <template
+                                        v-if="item.detail.jsonCzfa.length > 1"
+                                    >
+                                        <td :rowspan="1" class="buttonText">
+                                            {{
+                                                item.detail.jsonCzfa[0].prjname
+                                            }}
+                                        </td>
+                                        <td :rowspan="1" class="buttonText">
+                                            {{
+                                                item.detail.jsonCzfa[0].solution
+                                            }}
+                                        </td>
+                                        <td :rowspan="1" class="buttonText">
+                                            {{
+                                                item.detail.jsonCzfa[0].czfaval
+                                            }}
+                                            {{
+                                                item.detail.jsonCzfa[0].unitname
+                                            }}
+                                        </td>
+                                    </template>
+
+                                    <template v-else>
+                                        <td :rowspan="1" colspan="3">
+                                            --
+                                        </td>
+                                    </template>
+
+                                    <td
+                                        :rowspan="
+                                            item.detail.jsonCzfa.length || 1
+                                        "
+                                    >
+                                        <!-- <el-button
+                                            type="text"
+                                            size="small"
+                                            @click="updateItem(scope.row.id)"
+                                            >方案</el-button
+                                        > -->
+                                        <el-button
+                                            type="text"
+                                            size="small"
+                                            @click="updateItem(scope.row.id)"
+                                            >查看规则</el-button
+                                        >
+                                        <!-- <el-button
+                                            type="text"
+                                            size="small"
+                                            @click="updateItem(scope.row.id)"
+                                            >重新解析</el-button
+                                        > -->
+                          
+                                    </td>
+                                </tr>
+
+                                <!-- 多于一行的部分 -->
+                                <template
+                                    v-if="item.detail.jsonCzfa.length > 1"
+                                >
+                                    <tr
+                                        v-for="(sub,
+                                        i) in item.detail.jsonCzfa.slice(1)"
+                                        :key="sub.id"
+                                        :rowspan="1"
+                                    >
+                                        <td :rowspan="1" class="buttonText">
+                                            {{ sub.prjname }}
+                                        </td>
+                                        <td :rowspan="1" class="buttonText">
+                                            {{ sub.solution }}
+                                        </td>
+                                        <td :rowspan="1" class="buttonText">
+                                            {{ sub.czfaval }}
+                                            {{ sub.unitname }}
+                                        </td>
+                                    </tr>
+                                </template>
                             </template>
-                        </el-table-column>
-                        <el-table-column prop="fileName" label="所属部位" fixed>
-                            <template slot-scope="scope">
-                                {{ scope.row.detail.partdesc }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="fileName" label="缺陷简称">
-                            <template slot-scope="scope">
-                                {{ scope.row.detail.qxname }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column
-                            prop="fileName"
-                            label="缺陷描述"
-                            width="260"
-                        >
-                            <template slot-scope="scope">
-                                {{ scope.row.detail.diseasedesc }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="fileName" label="参数信息">
-                            <template slot-scope="scope">
-                                {{ scope.row.detail.paramval }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column
-                            prop="fileName"
-                            label="处置方案"
-                            width="200"
-                        >
-                            <template slot-scope="scope">
-                                {{ scope.row.detail.czfaid_cn }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="fileName" label="规则码匹配">
-                            <template slot-scope="scope">
-                                {{ scope.row.detail.cfgid_cn }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="操作" width="60">
-                            <template slot-scope="scope">
-                                <el-button
-                                    type="text"
-                                    size="small"
-                                    @click="openDetail(scope.row.linkmod)"
-                                    >详情</el-button
-                                ></template
-                            >
-                        </el-table-column>
-                    </el-table>
+                        </tbody>
+                    </table>
+
+                  
                     <div style="margin-top:24px" flex="main:center">
                         <el-pagination
                             background

@@ -33,6 +33,36 @@
             color: #909399;
         }
     }
+
+    .table {
+        width: 100%;
+        border: none;
+        thead {
+            background: #3a8ee6 !important;
+            color: #fff;
+            font-size: 13px;
+            padding: 8px;
+            letter-spacing: 2px;
+            td {
+                padding: 12px;
+                border: 1px solid #ecf5ff;
+            }
+        }
+        tbody {
+            font-size: 12px;
+            td {
+                padding: 8px;
+                border: 1px solid #ecf5ff;
+                line-height: 2;
+            }
+        }
+        .buttonText {
+            cursor: pointer;
+            &:hover {
+                color: #3a8ee6;
+            }
+        }
+    }
 }
 
 .icon-empty {
