@@ -39,116 +39,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <template v-for="(item, index) in defectList">
-                                <tr :key="item.id">
-                                    <td
-                                        :rowspan="
-                                            item.detail.jsonCzfa.length || 1
-                                        "
-                                    >
-                                        {{ item.detail.partdesc }}
-                                    </td>
-                                    <td
-                                        :rowspan="
-                                            item.detail.jsonCzfa.length || 1
-                                        "
-                                    >
-                                        {{ item.detail.qxname }}
-                                    </td>
-                                    <td
-                                        :rowspan="
-                                            item.detail.jsonCzfa.length || 1
-                                        "
-                                    >
-                                        {{ item.detail.diseasedesc }}
-                                    </td>
-
-                                    <!-- 处置方案 -->
-
-                                    <template
-                                        v-if="item.detail.jsonCzfa.length > 1"
-                                    >
-                                        <td :rowspan="1" class="buttonText">
-                                            {{
-                                                item.detail.jsonCzfa[0].prjname
-                                            }}
-                                        </td>
-                                        <td :rowspan="1" class="buttonText">
-                                            {{
-                                                item.detail.jsonCzfa[0].solution
-                                            }}
-                                        </td>
-                                        <td :rowspan="1" class="buttonText">
-                                            {{
-                                                item.detail.jsonCzfa[0].czfaval
-                                            }}
-                                            {{
-                                                item.detail.jsonCzfa[0].unitname
-                                            }}
-                                        </td>
-                                    </template>
-
-                                    <template v-else>
-                                        <td :rowspan="1" colspan="3">
-                                            --
-                                        </td>
-                                    </template>
-
-                                    <td
-                                        :rowspan="
-                                            item.detail.jsonCzfa.length || 1
-                                        "
-                                    >
-                                        <!-- <el-button
-                                            type="text"
-                                            size="small"
-                                            @click="updateItem(scope.row.id)"
-                                            >方案</el-button
-                                        > -->
-                                        <el-button
-                                            type="text"
-                                            size="small"
-                                            @click="updateItem(scope.row.id)"
-                                            >查看规则</el-button
-                                        >
-                                        <!-- <el-button
-                                            type="text"
-                                            size="small"
-                                            @click="updateItem(scope.row.id)"
-                                            >重新解析</el-button
-                                        > -->
-                          
-                                    </td>
-                                </tr>
-
-                                <!-- 多于一行的部分 -->
-                                <template
-                                    v-if="item.detail.jsonCzfa.length > 1"
+                            <tr
+                                v-for="(line, lineIndex) in defectList"
+                                :key="lineIndex"
+                            >
+                                <td
+                                    v-for="(item, index) in line"
+                                    :key="index"
+                                    :rowspan="item.rowspan"
                                 >
-                                    <tr
-                                        v-for="(sub,
-                                        i) in item.detail.jsonCzfa.slice(1)"
-                                        :key="sub.id"
-                                        :rowspan="1"
-                                    >
-                                        <td :rowspan="1" class="buttonText">
-                                            {{ sub.prjname }}
-                                        </td>
-                                        <td :rowspan="1" class="buttonText">
-                                            {{ sub.solution }}
-                                        </td>
-                                        <td :rowspan="1" class="buttonText">
-                                            {{ sub.czfaval }}
-                                            {{ sub.unitname }}
-                                        </td>
-                                    </tr>
-                                </template>
-                            </template>
+                                    {{ item.content }}
+                                </td>
+                            </tr>
                         </tbody>
+
                     </table>
 
-                  
-                    <div style="margin-top:24px" flex="main:center">
+                    <div style="margin-top: 24px" flex="main:center">
                         <el-pagination
                             background
                             v-if="defectList.length > 0"

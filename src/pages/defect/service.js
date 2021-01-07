@@ -8,4 +8,5 @@ export default requestCreator({
     updateConfig: "/jtyh/qlqxgl/busiqlqxglwj/updateqxcfg",
     exportfile: "/jtyh/qlqxgl/busiqlqxglwj/exportfile",
     fetchRuleList: "/jtyh/qlqxgl/busiqlqxglwj/getcfglist",
+    fetchRuleList: "/jtyh/qlqxgl/busiqlqxglwj/getcfgitem",
 });
