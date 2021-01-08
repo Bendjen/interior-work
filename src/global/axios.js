@@ -31,7 +31,7 @@ export default function axiosInit() {
                     if (loadingList[config.url]) {
                         loadingList[config.url].close();
                         delete loadingList[config.url];
-                        MessageBox.alert(`请求超时\n${config.url}`, "提示");
+                        // MessageBox.alert(`请求超时\n${config.url}`, "提示");
                     }
                 }, TIME_OUT + 2000);
             }

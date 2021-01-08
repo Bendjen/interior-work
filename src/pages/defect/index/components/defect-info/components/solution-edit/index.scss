@@ -1,0 +1,50 @@
+.solution-edit {
+    padding: 0 40px;
+
+    .search-table {
+        padding: 0 20px;
+
+        h4 {
+            margin: 5px 0;
+
+        }
+    }
+
+    .solution-list{
+        position: relative;
+        padding-top: 20px;
+        .addButton{
+            position: absolute;
+            left: 0px;
+            top: -25px;
+            i{
+                font-size: 18px;
+            }
+        }
+        .saveBtn{
+            position: absolute;
+            right: 0px;
+            top: -25px;
+        }
+        .deleteButton{
+            font-size: 20px;
+            color: red;
+            padding-left: 10px;
+        }
+    }
+    .valueInput{
+        .el-input__inner{
+            text-align: center;
+        }
+    }
+    .el-input__inner{
+        font-size: 13px;
+    }
+}
+
+.el-select-dropdown__item {
+    height: auto !important;
+    line-height:2;
+    padding: 5px 20px;
+    border-bottom: 1px solid #e5e5e5;
+}

@@ -25,6 +25,8 @@ export default {
     methods: {
         fetchFileList(page) {
             SERVICE.fetchFileList({
+                startdate: this.date ? this.date[0] : "",
+                enddate: this.date ? this.date[1] : "",
                 "page.count": this.pageCount,
                 "page.start": page,
             }).then((res) => {
@@ -80,7 +82,9 @@ export default {
             this.$refs.uploader.submit();
         },
         updateAnalyse(id) {
-            this.$confirm("缺陷解析将根据当前规则重新生成并覆盖原数据，是否继续？").then(() => {
+            this.$confirm(
+                "缺陷解析将根据当前规则重新生成并覆盖原数据，是否继续？"
+            ).then(() => {
                 SERVICE.updateConfig({
                     type: 1,
                     tid: id,
@@ -91,7 +95,6 @@ export default {
                     });
                 });
             });
-           
         },
         exportReport(id) {
             SERVICE.exportfile({

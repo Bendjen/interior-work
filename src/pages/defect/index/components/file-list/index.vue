@@ -4,13 +4,19 @@
         <div flex="main:start cross:center" style="margin-bottom:15px">
             <el-date-picker
                 v-model="date"
-                type="monthrange"
+                type="daterange"
                 range-separator="至"
                 start-placeholder="开始月份"
                 end-placeholder="结束月份"
+                value-format="yyyy-MM-dd"
             >
             </el-date-picker>
-            <el-button type="primary" style="margin: 0 20px">查询</el-button>
+            <el-button
+                type="primary"
+                style="margin: 0 20px"
+                @click="fetchFileList(1)"
+                >查询</el-button
+            >
             <el-upload
                 action="/jtyh/qlqxgl/busiqlqxglwj/importfile"
                 accept=".docx"
@@ -27,12 +33,13 @@
         </div>
 
         <el-table :data="fileList" border style="width:100%;">
-            <el-table-column prop="fileName" label="缺陷文件名"  width="360">
+            <el-table-column prop="fileName" label="缺陷文件名" width="360">
                 <template slot-scope="scope">
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#interior-word"></use>
                     </svg>
                     <el-button
+                        class="buttonText"
                         type="text"
                         size="small"
                         @click="switchDetail(scope)"
@@ -43,8 +50,7 @@
                     </el-button>
                 </template>
             </el-table-column>
- 
-           
+
             <el-table-column prop="supplier" label="文件提供方">
                 <template slot-scope="scope">
                     <span style="padding-left:5px;">{{
@@ -66,11 +72,19 @@
                     }}</span>
                 </template>
             </el-table-column> -->
-             <el-table-column prop="supplier" label="最后编辑时间" align="center"  width="170">
+            <el-table-column
+                prop="supplier"
+                label="最后编辑信息"
+                align="center"
+                width="170"
+            >
                 <template slot-scope="scope">
-                    <span style="padding-left:5px;">{{
-                        scope.row.detail.editdate || "--"
-                    }}</span>
+                    <p v-if="scope.row.detail.editor">
+                        {{ scope.row.detail.editor }}
+                    </p>
+                    <p v-if="scope.row.detail.editdate">
+                        {{ scope.row.detail.editdate }}
+                    </p>
                 </template>
             </el-table-column>
             <el-table-column label="操作" width="300" align="center">

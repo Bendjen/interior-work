@@ -8,5 +8,11 @@ export default requestCreator({
     updateConfig: "/jtyh/qlqxgl/busiqlqxglwj/updateqxcfg",
     exportfile: "/jtyh/qlqxgl/busiqlqxglwj/exportfile",
     fetchRuleList: "/jtyh/qlqxgl/busiqlqxglwj/getcfglist",
-    fetchRuleList: "/jtyh/qlqxgl/busiqlqxglwj/getcfgitem",
+    fetchRuleItem: "/jtyh/qlqxgl/busiqlqxglwj/getcfgitem",
+    fetchSolutionList: {
+        url: "/jtyh/qlqxgl/busiqlqxglwj/getczfalist",
+        hideLoading: true,
+    },
+    saveSolution: "/jtyh/qlqxgl/busiqlqxglwj/saveqxfa",
+    deleteSolution: "/jtyh/qlqxgl/busiqlqxglwj/deleteqxfa",
 });

@@ -26,7 +26,7 @@
                     <table class="table" cellspacing="0">
                         <thead>
                             <tr>
-                                <td rowspan="2">部位位置</td>
+                                <td rowspan="2" width="100">部位位置</td>
                                 <td rowspan="2">缺陷简称</td>
                                 <td rowspan="2">缺陷描述</td>
                                 <td rowspan="1" colspan="3">处置方案</td>
@@ -47,12 +47,13 @@
                                     v-for="(item, index) in line"
                                     :key="index"
                                     :rowspan="item.rowspan"
+                                    :class="item.class"
+                                    @click="handleEvent(item)"
                                 >
                                     {{ item.content }}
                                 </td>
                             </tr>
                         </tbody>
-
                     </table>
 
                     <div style="margin-top: 24px" flex="main:center">
@@ -79,6 +80,8 @@
         </div>
 
         <defect-detail ref="defectDetail" />
+        <solution-edit ref="solutionEdit" @update="pageChange(page)" />
+        <rule-edit ref="ruleEdit" @update="pageChange(page)" />
     </div>
 </template>
 <style lang="scss" src="./index.scss"></style>

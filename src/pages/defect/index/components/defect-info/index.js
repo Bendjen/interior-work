@@ -1,5 +1,7 @@
 import SERVICE from "@/pages/defect/service";
 import DefectDetail from "../defect-detail";
+import SolutionEdit from "./components/solution-edit";
+import RuleEdit from "./components/rule-edit";
 
 export default {
     name: "defect-info",
@@ -10,7 +12,7 @@ export default {
             defectList: [],
             page: 1,
             total: 0,
-            pageCount: 999,
+            pageCount: 50,
         };
     },
     props: {
@@ -18,7 +20,7 @@ export default {
         title: { default: "", type: String },
     },
 
-    components: { DefectDetail },
+    components: { DefectDetail, SolutionEdit, RuleEdit },
 
     watch: {
         id() {
@@ -61,90 +63,116 @@ export default {
                 "page.start": page,
                 "page.count": this.pageCount,
             }).then((res) => {
+                // console.log(this.serialize2(res.resdata));
+                this.defectList = this.serialize(res.resdata);
+                this.page = res.reshead.page.start;
+                this.total = parseInt(res.reshead.page.total);
+            });
+        },
 
-                let serializeList = Object.entries(
-                    _.groupBy(res.resdata, (item) => item.detail.partdesc)
-                ).map(([position, children]) => {
-                    return { position, children, rowspan: 0 };
-                });
-                serializeList.forEach((group) => {
-                    group.rowspan = group.children.reduce((pre, sub) => {
-                        let subRowspan = sub.detail.jsonCzfa.length || 1;
-                        sub.rowspan = subRowspan;
-                        return pre + subRowspan;
-                    }, 0);
-                });
-                console.log(serializeList);
-                let list = [];
-                serializeList.forEach((group, groupIndex) => {
-                    let positionPool = [
-                        {
-                            content: group.position,
-                            rowspan: group.rowspan,
-                        },
-                    ];
-                    let qxNamePool = [];
-                    let qxDescPool = [];
-                    let rulePool = [];
-                    group.children.forEach((record, recordIndex) => {
-                        qxNamePool.push({
-                            content: record.detail.qxname,
-                            rowspan: record.rowspan,
-                        });
-                        qxDescPool.push({
-                            content: record.detail.diseasedesc,
-                            rowspan: record.rowspan,
-                        });
-                        rulePool.push({
-                            content: record.detail.cfgid_cn,
-                            rowspan: record.rowspan,
-                        });
-                        if (record.detail.jsonCzfa.length == 0) {
+        serialize(inputList) {
+            let list = [];
+            let serializeList = Object.entries(
+                _.groupBy(inputList, (item) => item.detail.partdesc)
+            ).map(([position, children]) => {
+                return { position, children, rowspan: 0 };
+            });
+            serializeList.forEach((group) => {
+                group.rowspan = group.children.reduce((pre, sub) => {
+                    let subRowspan = sub.detail.jsonCzfa.length || 1;
+                    sub.rowspan = subRowspan;
+                    return pre + subRowspan;
+                }, 0);
+            });
+            console.log(serializeList);
+            serializeList.forEach((group, groupIndex) => {
+                let positionPool = [
+                    {
+                        content: group.position,
+                        rowspan: group.rowspan,
+                    },
+                ];
+                let qxNamePool = [];
+                let qxDescPool = [];
+                let rulePool = [];
+                group.children.forEach((record, recordIndex) => {
+                    qxNamePool.push({
+                        content: record.detail.qxname,
+                        rowspan: record.rowspan,
+                    });
+                    qxDescPool.push({
+                        content: record.detail.diseasedesc,
+                        rowspan: record.rowspan,
+                    });
+                    rulePool.push({
+                        content: record.detail.cfgid_cn,
+                        rowspan: record.rowspan,
+                        class: "buttonText",
+                        event: "editRule",
+                        ruleId: record.detail.cfgid_cn,
+                    });
+                    if (record.detail.jsonCzfa.length == 0) {
+                        list.push([
+                            ...positionPool.splice(0, 1),
+                            ...qxNamePool.splice(0, 1),
+                            ...qxDescPool.splice(0, 1),
+                            { content: "--", rowspan: 1 },
+                            { content: "--", rowspan: 1 },
+                            { content: "--", rowspan: 1 },
+                            ...rulePool.splice(0, 1),
+                        ]);
+                    } else {
+                        record.detail.jsonCzfa.forEach((item, index) => {
+                            let prjname = {
+                                content: item.prjname,
+                                rowspan: 1,
+                                class: "buttonText",
+                                event: "editSolution",
+                                list: record.detail.jsonCzfa,
+                                qxid: record.id,
+                            };
+                            let solution = {
+                                content: item.solution,
+                                rowspan: 1,
+                                class: "buttonText",
+                                event: "editSolution",
+                                list: record.detail.jsonCzfa,
+                                qxid: record.id,
+                            };
+                            let czfaval = {
+                                content: `${item.czfaval}${item.unitname}`,
+                                rowspan: 1,
+                                class: "buttonText",
+                                event: "editSolution",
+                                list: record.detail.jsonCzfa,
+                                qxid: record.id,
+                            };
                             list.push([
                                 ...positionPool.splice(0, 1),
                                 ...qxNamePool.splice(0, 1),
                                 ...qxDescPool.splice(0, 1),
-                                { content: "--", rowspan: 1 },
-                                { content: "--", rowspan: 1 },
-                                { content: "--", rowspan: 1 },
+                                prjname,
+                                solution,
+                                czfaval,
                                 ...rulePool.splice(0, 1),
                             ]);
-                        } else {
-                            record.detail.jsonCzfa.forEach((item, index) => {
-                                let prjname = {
-                                    content: item.prjname,
-                                    rowspan: 1,
-                                    class: "buttonText",
-                                };
-                                let solution = {
-                                    content: item.solution,
-                                    rowspan: 1,
-                                    class: "buttonText",
-                                };
-                                let czfaval = {
-                                    content: `${item.czfaval}${item.unitname}`,
-                                    rowspan: 1,
-                                    class: "buttonText",
-                                };
-                                list.push([
-                                    ...positionPool.splice(0, 1),
-                                    ...qxNamePool.splice(0, 1),
-                                    ...qxDescPool.splice(0, 1),
-                                    prjname,
-                                    solution,
-                                    czfaval,
-                                    ...rulePool.splice(0, 1),
-                                ]);
-                            });
-                        }
-                    });
+                        });
+                    }
                 });
-
-                console.log(list);
-                this.defectList = list;
-                this.page = res.reshead.page.start;
-                this.total = parseInt(res.reshead.page.total);
             });
+            return list;
+        },
+        handleEvent(item) {
+            if (item.event) {
+                this[item.event](item);
+            }
+        },
+        editSolution(item) {
+            this.$refs.solutionEdit.open({ qxid: item.qxid, list: item.list });
+        },
+
+        editRule(item) {
+            this.$refs.ruleEdit.open({ ruleId: item.ruleId });
         },
 
         openDetail(url) {

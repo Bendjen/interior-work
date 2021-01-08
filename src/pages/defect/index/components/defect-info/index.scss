@@ -16,8 +16,8 @@
         }
     }
     .el-tabs__header {
-        max-height: 650px;
-        overflow-y: auto;
+        // max-height: 650px;
+        // overflow-y: auto;
         overflow-x: hidden;
         border: 1px solid #e5e5e5;
     }
@@ -52,7 +52,7 @@
             font-size: 12px;
             td {
                 padding: 8px;
-                border: 1px solid #ecf5ff;
+                border: 1px solid #e4e4e4;
                 line-height: 2;
             }
         }
@@ -60,6 +60,7 @@
             cursor: pointer;
             &:hover {
                 color: #3a8ee6;
+                text-decoration: underline;
             }
         }
     }
