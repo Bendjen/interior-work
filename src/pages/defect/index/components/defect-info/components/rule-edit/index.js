@@ -1,4 +1,8 @@
 import SERVICE from "@/pages/defect/service";
+import exceptRuleTemplate from "@/pages/defect/components/except-rule-template";
+import containRuleTemplate from "@/pages/defect/components/contain-rule-template";
+import paramRuleTemplate from "@/pages/defect/components/param-rule-template";
+import conditionRuleTemplate from "@/pages/defect/components/condition-rule-template";
 
 export default {
     name: "rule-edit",
@@ -6,103 +10,100 @@ export default {
         return {
             dialogVisible: false,
             ruleId: "",
-            ifEdit: false,
+            recordId: "",
             info: {
                 filterval: "",
                 judgeval: "",
                 noneval: "",
                 parameval: "",
             },
-
-            filterList: [],
-            judgeList: [],
-            noneList: [],
-            parameList: [],
         };
     },
 
     mounted() {},
 
+    components: {
+        exceptRuleTemplate,
+        containRuleTemplate,
+        paramRuleTemplate,
+        conditionRuleTemplate,
+    },
+
     methods: {
-        open({ ruleId }) {
+        open({ ruleId, recordId }) {
             this.ifEdit = false;
             this.ruleId = ruleId;
+            this.recordId = recordId;
             this.dialogVisible = true;
             this.fetchRuleInfo();
+        },
+
+        close() {
+            this.dialogVisible = false;
+            this.ruleId = "";
+            this.recordId = "";
+            this.info = {
+                filterval: "",
+                judgeval: "",
+                noneval: "",
+                parameval: "",
+            };
         },
 
         fetchRuleInfo() {
             SERVICE.fetchRuleItem({ tid: this.ruleId }).then((res) => {
                 this.info = res.resdata;
-                const { filterval, judgeval, noneval, parameval } = res.resdata;
-                this.filterList = this.transformList(filterval);
-                this.judgeList = this.transformList(judgeval);
-                this.noneList = this.transformList(noneval);
-                this.parameList = this.transformList(parameval);
             });
         },
 
-        transformList(rule) {
-            let list = [];
-            if (rule.endsWith(";")) {
-                list = rule.split(";").slice(0, -1);
-            } else if (rule === "") {
-                list = [];
-            } else {
-                let groupList = this.info.noneval.split(";");
-                return groupList.map((group, groupIndex) => {
-                    if (group === "") {
-                        return [];
-                    } else {
-                        return group.split(",").map((sub, itemIndex) => {
-                            return { value: sub, groupIndex, itemIndex };
+        save(callback) {
+            SERVICE.safeRule({
+                ...this.info,
+                noneval: this.$refs.exceptRule.tsToStr(),
+                filterval: this.$refs.containRule.tsToStr(),
+                parameval: this.$refs.paramRule.tsToStr(),
+                judgeval: this.$refs.conditionRule.tsToStr(),
+            }).then((res) => {
+                this.$set(this.info, "editdate", res.resdata.editdate);
+                if (typeof callback == "function") {
+                    callback();
+                } else {
+                    this.$notify.success({
+                        title: "保存成功",
+                        message: "规则已更新",
+                    });
+                }
+            });
+        },
+
+        saveAndApply() {
+            this.$confirm(
+                "缺陷解析将根据新规则重新生成并覆盖此条数据，是否继续？"
+            ).then(() => {
+                this.save(() => {
+                    SERVICE.updateConfig({
+                        type: 3,
+                        tid: this.recordId,
+                    }).then((res) => {
+                        this.$emit("update");
+                        this.close();
+                        this.$notify.success({
+                            title: "保存成功",
+                            message: "规则已更新",
                         });
-                    }
+                    });
                 });
-            }
-            return list;
-        },
-
-        addLine(listType) {
-            let cahceList = _.cloneDeep(this[listType]);
-            cahceList.push([]);
-            this[listType] = cahceList;
-        },
-
-        deleteLine(listType, groupIndex) {
-            this.$confirm("确定要删除此行吗?", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "warning",
-            }).then(() => {
-                let cahceList = _.cloneDeep(this[listType]);
-                cahceList.splice(groupIndex, 1);
-                this[listType] = cahceList;
             });
         },
-
-        inputItem(e, item) {
-            this.$set(item, "value", e.target.innerHTML);
-        },
-        addItem(listType, groupIndex) {
-            let cahceList = _.cloneDeep(this[listType]);
-            cahceList[groupIndex].push({
-                value: "",
-                groupIndex,
-                itemIndex: cahceList[groupIndex] + 1,
-            });
-            this[listType] = cahceList;
-        },
-        deleteItem(typeList, item) {
-            const { groupIndex, itemIndex } = item;
-            this[typeList][groupIndex].splice(itemIndex, 1);
-        },
-
-        save() {},
         clear() {
-            this.qxid = "";
-            this.list = [];
-            this.ifEdit = false;
+            this.ruleId = "";
+            this.recordId = "";
+            this.info = {
+                filterval: "",
+                judgeval: "",
+                noneval: "",
+                parameval: "",
+            };
         },
         closeDialog() {
             if (this.ifEdit) {

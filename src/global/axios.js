@@ -72,7 +72,7 @@ export default function axiosInit() {
                     if (data.includes("登录")) {
                         Store.commit("setLogin", 0);
                         window.$login.clear();
-                        location.href = `//${location.host}/#/base/login`;
+                        location.href = `//${location.host}/sjzx/#/base/login`;
                     } else if (!!data) {
                         alert(data);
                     }

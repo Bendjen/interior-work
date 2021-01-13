@@ -79,7 +79,7 @@
             <span>该文件解析无结果</span>
         </div>
 
-        <defect-detail ref="defectDetail" />
+        <!-- <defect-detail ref="defectDetail" /> -->
         <solution-edit ref="solutionEdit" @update="pageChange(page)" />
         <rule-edit ref="ruleEdit" @update="pageChange(page)" />
     </div>

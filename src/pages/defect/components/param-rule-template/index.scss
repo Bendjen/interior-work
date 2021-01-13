@@ -1,20 +1,4 @@
-.rule-edit {
-    padding: 0 40px;
-    text-align: left;
-
-    .config-list {
-        max-height: 600px;
-        overflow-y: auto;
-        position: relative;
-    }
-
-    .saveBtn {
-        position: absolute;
-        right: 60px;
-        z-index: 9;
-        background: #fff;
-    }
-
+.rule-template {
     .el-tag {
         margin: 5px;
         letter-spacing: 1px;

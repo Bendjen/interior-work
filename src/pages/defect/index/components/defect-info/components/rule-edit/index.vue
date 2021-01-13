@@ -2,71 +2,27 @@
     <el-dialog
         title="当前规则"
         :visible.sync="dialogVisible"
-        width="800px"
-        top="20vh"
+        width="900px"
         class="rule-edit"
         @close="closeDialog"
     >
-        <div class="config-list">
-            <div>
-                <h3>
-                    <span>被排除关键字</span>
-                    <el-button
-                        type="text"
-                        class="addLineBtn"
-                        @click="addLine('noneList')"
-                        >增加行</el-button
-                    >
-                </h3>
-                <div>
-                    <div
-                        v-for="(group, groupIndex) in noneList"
-                        :key="groupIndex"
-                        class="groupLine"
-                        flex="main:start box:first"
-                    >
-                        <span class="indexSpan">{{ groupIndex + 1 }}</span>
-                        <div class="tagGroup">
-                            <template v-for="(item, itemIndex) in group">
-                                <div :key="itemIndex" class="tagItem">
-                                    <el-tag
-                                        closable
-                                        type="success"
-                                        @close="deleteItem('noneList', item)"
-                                    >
-                                        <div
-                                            style="display:inline-block;padding:0 5px"
-                                            contenteditable
-                                            v-html="item.value"
-                                            @blur="inputItem($event, item)"
-                                        ></div>
-                                    </el-tag>
-                                    <span
-                                        class="orSpan"
-                                        v-if="itemIndex < group.length - 1"
-                                        >或</span
-                                    >
-                                </div>
-                            </template>
-                            <el-button
-                                type="text"
-                                class="plusIcon"
-                                @click="addItem('noneList', groupIndex)"
-                            >
-                                <i class="el-icon-plus"></i>
-                            </el-button>
+        <div class="saveBtn">
+            <el-button type="primary" size="text" @click="save"
+                >仅保存</el-button
+            >
+            <el-button type="primary" size="text" @click="saveAndApply"
+                >保存并应用</el-button
+            >
+        </div>
 
-                            <el-button
-                                type="text"
-                                class="deleteLineBtn"
-                                @click="deleteLine('noneList', groupIndex)"
-                                >删除行</el-button
-                            >
-                        </div>
-                    </div>
-                </div>
-            </div>
-          
+        <div class="config-list">
+            <except-rule-template :field="info.noneval" ref="exceptRule" />
+            <contain-rule-template :field="info.filterval" ref="containRule" />
+            <param-rule-template :field="info.parameval" ref="paramRule" />
+            <condition-rule-template
+                :field="info.judgeval"
+                ref="conditionRule"
+            />
         </div>
     </el-dialog>
 </template>

@@ -19,5 +19,14 @@ export default {
                 },
             },
         },
+        {
+            id: "solution",
+            meta: {
+                title: "方案配置配置",
+                parent: {
+                    title: "缺陷分析",
+                },
+            },
+        },
     ],
 };

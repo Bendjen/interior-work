@@ -9,10 +9,14 @@ export default requestCreator({
     exportfile: "/jtyh/qlqxgl/busiqlqxglwj/exportfile",
     fetchRuleList: "/jtyh/qlqxgl/busiqlqxglwj/getcfglist",
     fetchRuleItem: "/jtyh/qlqxgl/busiqlqxglwj/getcfgitem",
-    fetchSolutionList: {
+    safeRule: "/jtyh/qlqxgl/busiqlqxglwj/savecfg",
+    fetchSolutionOption: {
         url: "/jtyh/qlqxgl/busiqlqxglwj/getczfalist",
         hideLoading: true,
     },
-    saveSolution: "/jtyh/qlqxgl/busiqlqxglwj/saveqxfa",
+    saveSolutionConfig: "/jtyh/qlqxgl/busiqlqxglwj/saveqxfa",
     deleteSolution: "/jtyh/qlqxgl/busiqlqxglwj/deleteqxfa",
+    fetchSolutionList: "/jtyh/qlqxgl/busiqlqxglwj/getczfalist",
+    fetchSolutionItem: "/jtyh/qlqxgl/busiqlqxglwj/getczfaitem",
+    saveSolution:"/jtyh/qlqxgl/busiqlqxglwj/saveczfa"
 });

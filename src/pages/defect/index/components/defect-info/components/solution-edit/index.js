@@ -26,13 +26,13 @@ export default {
             }
         },
         remoteMethod(query) {
-            this.loading = true;
-            SERVICE.fetchSolutionList({
+            this.searchLoading = true;
+            SERVICE.fetchSolutionOption({
                 "page.search": query,
                 "page.count": 999,
             }).then((res) => {
                 this.options = res.resdata;
-                this.loading = false;
+                this.searchLoading = false;
             });
         },
         changeItem(index, item) {
@@ -79,7 +79,7 @@ export default {
             } else {
                 this.list.forEach((item) => {
                     const { id, czfaid, czfaval, editdate, solution } = item;
-                    SERVICE.saveSolution({
+                    SERVICE.saveSolutionConfig({
                         qxid: this.qxid,
                         id,
                         czfaid,

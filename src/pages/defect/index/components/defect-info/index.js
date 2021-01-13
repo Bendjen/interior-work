@@ -110,6 +110,7 @@ export default {
                         class: "buttonText",
                         event: "editRule",
                         ruleId: record.detail.cfgid_cn,
+                        recordId: record.id,
                     });
                     if (record.detail.jsonCzfa.length == 0) {
                         list.push([
@@ -172,7 +173,10 @@ export default {
         },
 
         editRule(item) {
-            this.$refs.ruleEdit.open({ ruleId: item.ruleId });
+            this.$refs.ruleEdit.open({
+                ruleId: item.ruleId,
+                recordId: item.recordId,
+            });
         },
 
         openDetail(url) {

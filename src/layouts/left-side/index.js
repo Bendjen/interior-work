@@ -15,6 +15,10 @@ export default {
                             title: "规则配置",
                             id: "rule",
                         },
+                        {
+                            title: "方案配置",
+                            id: "solution",
+                        },
                     ],
                 },
                 {
