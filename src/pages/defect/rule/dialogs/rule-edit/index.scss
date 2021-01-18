@@ -1,7 +1,9 @@
 .rule-edit {
     padding: 0 40px;
     text-align: left;
-
+    .el-dialog__body{
+        padding-top: 5px!important;
+    }
     .config-list {
         max-height: 600px;
         overflow-y: auto;
@@ -13,6 +15,9 @@
         right: 60px;
         z-index: 9;
         background: #fff;
+        span{
+            font-size: 16px;
+        }
     }
 
     .el-tag {

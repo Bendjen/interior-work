@@ -18,5 +18,7 @@ export default requestCreator({
     deleteSolution: "/jtyh/qlqxgl/busiqlqxglwj/deleteqxfa",
     fetchSolutionList: "/jtyh/qlqxgl/busiqlqxglwj/getczfalist",
     fetchSolutionItem: "/jtyh/qlqxgl/busiqlqxglwj/getczfaitem",
-    saveSolution:"/jtyh/qlqxgl/busiqlqxglwj/saveczfa"
+    saveSolution: "/jtyh/qlqxgl/busiqlqxglwj/saveczfa",
+    fetchFileItem: "/jtyh/qlqxgl/busiqlqxglwj/getwjitem",
+    saveFile: "/jtyh/qlqxgl/busiqlqxglwj/save",
 });

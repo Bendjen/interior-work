@@ -2,7 +2,7 @@ import SERVICE from "../service";
 import itemEdit from "./dialogs/item-edit";
 
 export default {
-    name: "solution-rule",
+    name: "solution-config",
     data() {
         return {
             tableData: [],

@@ -1,7 +1,7 @@
 import SERVICE from "@/pages/defect/service";
 import DefectDetail from "../defect-detail";
-import SolutionEdit from "./components/solution-edit";
-import RuleEdit from "./components/rule-edit";
+import SolutionConfigEdit from "./dialogs/solution-edit";
+import RuleEdit from "./dialogs/rule-edit";
 
 export default {
     name: "defect-info",
@@ -20,7 +20,7 @@ export default {
         title: { default: "", type: String },
     },
 
-    components: { DefectDetail, SolutionEdit, RuleEdit },
+    components: { DefectDetail, SolutionConfigEdit, RuleEdit },
 
     watch: {
         id() {

@@ -1,5 +1,6 @@
 import { saveAs } from "file-saver";
 import SERVICE from "@/pages/defect/service";
+import ItemEdit from "./dialogs/item-edit"
 
 export default {
     name: "file-list",
@@ -21,6 +22,8 @@ export default {
     mounted() {
         this.fetchFileList(1);
     },
+
+    components:{ItemEdit},
 
     methods: {
         fetchFileList(page) {
@@ -110,5 +113,8 @@ export default {
                 });
             });
         },
+        editItem(id){
+            this.$refs.itemEdit.open(id)
+        }
     },
 };

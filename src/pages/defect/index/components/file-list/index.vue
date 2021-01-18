@@ -61,7 +61,7 @@
             <el-table-column prop="supplier" label="备注">
                 <template slot-scope="scope">
                     <span style="padding-left:5px;">{{
-                        scope.row.detail.provider || "--"
+                        scope.row.detail.memo || "--"
                     }}</span>
                 </template>
             </el-table-column>
@@ -87,7 +87,7 @@
                     </p>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="300" align="center">
+            <el-table-column label="操作" width="340" align="center">
                 <template slot-scope="scope">
                     <el-button
                         type="success"
@@ -100,6 +100,12 @@
                         size="small"
                         @click="updateAnalyse(scope.row.id)"
                         >缺陷解析</el-button
+                    >
+                    <el-button
+                        type="primary"
+                        size="small"
+                        @click="editItem(scope.row.id)"
+                        >编辑</el-button
                     >
 
                     <el-button
@@ -148,6 +154,7 @@
                 <el-button @click="dialogVisible = false">取消</el-button>
             </div>
         </el-dialog>
+        <item-edit ref="itemEdit" @update="pageChange(page)"/>
     </div>
 </template>
 <style lang="scss" src="./index.scss"></style>

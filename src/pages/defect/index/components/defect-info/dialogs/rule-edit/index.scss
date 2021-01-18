@@ -1,0 +1,77 @@
+.rule-edit {
+    padding: 0 40px;
+    text-align: left;
+
+    .el-dialog__body {
+        padding-top: 5px !important;
+    }
+
+    .config-list {
+        max-height: 600px;
+        overflow-y: auto;
+        position: relative;
+    }
+
+    .saveBtn {
+        position: absolute;
+        right: 60px;
+        z-index: 9;
+        background: #fff;
+    }
+
+    .el-tag {
+        margin: 5px;
+        letter-spacing: 1px;
+    }
+
+    .plusIcon {
+        margin-left: 15px;
+    }
+
+    .groupLine {
+
+        .indexSpan {
+            display: block;
+            height: 40px;
+            line-height: 40px;
+            padding-right: 10px;
+        }
+
+        .orSpan {
+            padding: 0 5px;
+        }
+
+        .tagGroup {
+            flex-wrap: wrap;
+
+            .tagItem {
+                display: inline-block;
+            }
+        }
+    }
+
+    .addLineBtn {
+        padding-left: 15px;
+    }
+
+    .deleteLineBtn {
+        color: #f56c6c;
+    }
+
+    .cellInput {
+        border: none;
+        background: none;
+        outline: none;
+        text-align: center;
+        width: 60px;
+
+        &:focus {
+            border: none;
+            background: none;
+        }
+    }
+
+    [contenteditable]:focus {
+        outline: none;
+    }
+}

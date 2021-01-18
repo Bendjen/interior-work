@@ -1,51 +1,39 @@
 import SERVICE from "../service";
+import ruleEdit from "./dialogs/rule-edit";
 
 export default {
-    name: "defect-rule",
+    name: "rule-config",
     data() {
         return {
-            tableData: [
-                {
-                    blackList: ["横向裂缝:横向裂缝", "梁底"],
-                    whiteList: [],
-                    checkParam: [],
-                    paramLimit: [],
-                },
-            ],
+            tableData: [],
+            page: 1,
+            total: 0,
+            pageCount: 10,
         };
     },
 
-    components: {},
+    components: { ruleEdit },
 
     mounted() {
-        SERVICE.fetchRuleList().then((res) => {
-            console.log(res);
-        });
+        this.pageChange(1);
     },
 
     methods: {
-        addTag(line, key) {
-            this.$prompt("请输入匹配字符串", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-            }).then(({ value }) => {
-                let list = value.split(";");
-                this.tableData[line][key].push(...list);
-            });
-        },
-        deleteTag(line, key, index) {
-            this.tableData[line][key].splice(index, 1);
+        editRule(item) {
+            this.$refs.ruleEdit.open({ ruleId: item.id });
         },
         addRule() {
-            this.tableData.push({
-                blackList: [],
-                whiteList: [],
-                checkParam: [],
-                paramLimit: [],
-            });
+            this.$refs.ruleEdit.open({ ruleId: "" });
         },
-        deletItem(index) {
-            this.tableData.splice(index, 1);
+        pageChange(page) {
+            SERVICE.fetchRuleList({
+                "page.start": page,
+                "page.count": this.pageCount,
+            }).then((res) => {
+                this.tableData = res.resdata;
+                this.page = res.reshead.page.start;
+                this.total = parseInt(res.reshead.page.total);
+            });
         },
     },
 };

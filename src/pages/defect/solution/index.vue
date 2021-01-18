@@ -15,6 +15,12 @@
                     scope.row.detail.code
                 }}</template>
             </el-table-column>
+            <el-table-column label="状态" prop="code" width="70" align="center">
+                <template slot-scope="scope">
+                    <span v-if="scope.row.detail.status == 1" style="color:#67c23a">启用</span>
+                    <span v-else style="color:#f56c6c">禁用</span>
+                </template>
+            </el-table-column>
             <el-table-column label="工程名称" prop="prjname">
                 <template slot-scope="scope">{{
                     scope.row.detail.prjname
@@ -61,7 +67,7 @@
             >
             </el-pagination>
         </div>
-        <item-edit ref="itemEdit" @update="pageChange(page)"/>
+        <item-edit ref="itemEdit" @update="pageChange(page)" />
     </div>
 </template>
 <style lang="scss" src="./index.scss"></style>

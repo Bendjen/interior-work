@@ -80,7 +80,7 @@
         </div>
 
         <!-- <defect-detail ref="defectDetail" /> -->
-        <solution-edit ref="solutionEdit" @update="pageChange(page)" />
+        <solution-config-edit ref="solutionEdit" @update="pageChange(page)" />
         <rule-edit ref="ruleEdit" @update="pageChange(page)" />
     </div>
 </template>
