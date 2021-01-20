@@ -1,6 +1,6 @@
 <template>
     <div class="defect-file-list">
-        <p class="page-title">文件解析列表</p>
+        <p class="page-title">桥梁文件解析列表</p>
         <div flex="main:start cross:center" style="margin-bottom:15px">
             <el-date-picker
                 v-model="date"
@@ -18,7 +18,7 @@
                 >查询</el-button
             >
             <el-upload
-                action="/jtyh/qlqxgl/busiqlqxglwj/importfile"
+                action="/jtyh/qlqxgl/busiqlqxgl/importfile"
                 accept=".docx"
                 name="qxFiles"
                 :show-file-list="false"

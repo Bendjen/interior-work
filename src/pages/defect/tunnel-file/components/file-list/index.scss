@@ -1,0 +1,34 @@
+.defect-file-list {
+    position: relative;
+    h1 {
+        margin: 0;
+    }
+    // .addfile {
+    //     position: absolute;
+    //     right: 0;
+    // }
+
+    // .el-table--border th {
+    //     background: #3a8ee6;
+    //     color: #fff;
+    //     font-size: 14px;
+    //     padding: 12px;
+    //     letter-spacing: 2px;
+    // }
+    .el-table--border td{
+        padding: 4px!important;
+        font-size: 13px;
+    }
+    // .el-tabs__content {
+    //     padding-left: 40px;
+    // }
+}
+
+
+.icon {
+    width: 30px;
+    height: 30px;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}

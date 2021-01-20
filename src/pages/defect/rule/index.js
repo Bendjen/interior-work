@@ -9,7 +9,14 @@ export default {
             page: 1,
             total: 0,
             pageCount: 10,
+            cfgtype: 1,
         };
+    },
+
+    watch:{
+        cfgtype(){
+            this.pageChange(1)
+        }
     },
 
     components: { ruleEdit },
@@ -29,11 +36,15 @@ export default {
             SERVICE.fetchRuleList({
                 "page.start": page,
                 "page.count": this.pageCount,
+                cfgtype: this.cfgtype,
             }).then((res) => {
                 this.tableData = res.resdata;
                 this.page = res.reshead.page.start;
                 this.total = parseInt(res.reshead.page.total);
             });
+        },
+        confirmType(type) {
+            this.cfgtype = type;
         },
     },
 };

@@ -2,9 +2,18 @@ export default {
     id: "defect",
     children: [
         {
-            id: "index",
+            id: "bridge-file",
             meta: {
-                title: "文件解析",
+                title: "桥梁文件解析",
+                parent: {
+                    title: "缺陷分析",
+                },
+            },
+        },
+        {
+            id: "tunnel-file",
+            meta: {
+                title: "隧道文件解析",
                 parent: {
                     title: "缺陷分析",
                 },

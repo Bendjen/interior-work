@@ -117,6 +117,7 @@ export default {
             SERVICE.fetchSolutionOption({
                 "page.search": query,
                 "page.count": 999,
+                cfgtype:this.cfgtype || 1
             }).then((res) => {
                 this.options = res.resdata;
                 this.searchLoading = false;

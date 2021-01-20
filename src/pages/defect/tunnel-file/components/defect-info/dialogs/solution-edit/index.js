@@ -1,4 +1,4 @@
-import SERVICE from "@/pages/defect/service";
+import SERVICE from "@/pages/defect/tunnel-file/service";
 
 export default {
     name: "solution-edit",
@@ -28,6 +28,7 @@ export default {
         remoteMethod(query) {
             this.searchLoading = true;
             SERVICE.fetchSolutionOption({
+                cfgtype:2,
                 "page.search": query,
                 "page.count": 999,
             }).then((res) => {

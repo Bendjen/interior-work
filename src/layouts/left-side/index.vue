@@ -5,7 +5,7 @@
             <p>陆海数据中心</p>
         </div>
         <el-menu
-            default-active="index"
+            :default-active="activeIndex"
             class="el-menu-vertical-demo"
             background-color="#545c64"
             text-color="#fff"
@@ -14,7 +14,8 @@
         >
             <el-submenu v-for="item in menu" :index="item.id" :key="item.id">
                 <template slot="title">
-                    <i class="el-icon-menu"></i>
+                    <i :class="item.icon"></i>
+                    <!-- <i class="el-icon-menu"></i> -->
                     {{ item.title }}</template
                 >
                 <el-menu-item
@@ -22,7 +23,8 @@
                     :index="sub.id"
                     :key="sub.id"
                 >
-                    <i class="el-icon-finished"></i>
+                    <i :class="sub.icon"></i>
+                    <!-- <i :class="el-icon-finished"></i> -->
                     {{ sub.title }}
                 </el-menu-item>
             </el-submenu>

@@ -1,6 +1,6 @@
 <template>
     <el-dialog
-        title="当前规则"
+        :title="`当前规则 : ${info.id}`"
         :visible.sync="dialogVisible"
         width="900px"
         class="rule-edit"

@@ -1,16 +1,38 @@
 <template>
     <div class="defect-rule">
-        <p class="page-title" flex="main:justify cross:center">
-            <span>规则配置</span>
+        <div class="page-title" flex="main:justify cross:center">
+            <div flex="cross:center">
+                <span style="padding-right:15px">规则配置</span>
+                <el-radio-group
+                    v-model="cfgtype"
+                    size="small"
+                    fill="#67c23a"
+                    text-color="#fff"
+                >
+                    <el-radio-button label="1">桥梁</el-radio-button>
+                    <el-radio-button label="2">隧道</el-radio-button>
+                </el-radio-group>
+                <!-- <el-dropdown @command="confirmType">
+                    <span class="el-dropdown-link">
+                        {{ cfgtype == 1 ? "桥梁" : "隧道"
+                        }}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item command="1">桥梁</el-dropdown-item>
+                        <el-dropdown-item command="2">隧道</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown> -->
+            </div>
+
             <el-button type="text" @click="addRule">
                 <div flex="cross:center">
                     <i class="el-icon-plus" style="font-size:18px"></i>
-                    <span style="font-size:16px">添加处置方案</span>
+                    <span style="font-size:16px">添加规则</span>
                 </div>
             </el-button>
-        </p>
+        </div>
         <el-table :data="tableData" border style="width:100%;">
-            <el-table-column label="id" prop="code" width="100" align="center">
+            <el-table-column label="编码" prop="code" width="100" align="center">
                 <template slot-scope="scope">{{ scope.row.id }}</template>
             </el-table-column>
             <el-table-column label="状态" prop="code" width="70" align="center">
@@ -70,12 +92,12 @@
             </el-table-column>
             <el-table-column
                 label="检验部位"
-                prop="parttype"
+                prop="parttype_cn"
                 width="140"
                 align="center"
             >
                 <template slot-scope="scope">{{
-                    scope.row.detail.parttype
+                    scope.row.detail.parttype_cn
                 }}</template>
             </el-table-column>
 

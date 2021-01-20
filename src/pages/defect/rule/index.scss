@@ -1,10 +1,31 @@
 .defect-rule {
     // padding: 24px;
     box-sizing: border-box;
+
     .el-tag {
         margin: 5px;
     }
+
     .plusIcon {
         margin-left: 15px;
+    }
+
+    .el-dropdown-link {
+        cursor: pointer;
+        color: #409EFF;
+        font-size: 16px;
+    }
+
+    .el-icon-arrow-down {
+        font-size: 12px;
+    }
+
+    .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+        background-color: #67c23a;
+        border-color: #67c23a;
+    }
+
+    .el-radio-button__inner:hover {
+        color: #67c23a;
     }
 }

@@ -9,9 +9,16 @@ export default {
             page: 1,
             total: 0,
             pageCount: 10,
+            cfgtype: 1,
         };
     },
 
+    watch:{
+        cfgtype(){
+            this.pageChange(1)
+        }
+    },
+    
     components: { itemEdit },
 
     mounted() {
@@ -29,6 +36,7 @@ export default {
             SERVICE.fetchSolutionList({
                 "page.start": page,
                 "page.count": this.pageCount,
+                cfgtype: this.cfgtype,
             }).then((res) => {
                 this.tableData = res.resdata;
                 this.page = res.reshead.page.start;

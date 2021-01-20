@@ -1,4 +1,4 @@
-import SERVICE from "@/pages/defect/service";
+import SERVICE from "@/pages/defect/tunnel-file/service";
 import DefectDetail from "../defect-detail";
 import SolutionConfigEdit from "./dialogs/solution-edit";
 import RuleEdit from "./dialogs/rule-edit";
@@ -73,7 +73,7 @@ export default {
         serialize(inputList) {
             let list = [];
             let serializeList = Object.entries(
-                _.groupBy(inputList, (item) => item.detail.partdesc)
+                _.groupBy(inputList, (item) => item.detail.stakedesc)
             ).map(([position, children]) => {
                 return { position, children, rowspan: 0 };
             });
@@ -84,7 +84,7 @@ export default {
                     return pre + subRowspan;
                 }, 0);
             });
-            console.log(serializeList);
+
             serializeList.forEach((group, groupIndex) => {
                 let positionPool = [
                     {
@@ -105,10 +105,11 @@ export default {
                         rowspan: record.rowspan,
                     });
                     rulePool.push({
-                        content: record.detail.cfgid_cn,
+                        content: record.detail.cfgid_cn == 0 ? "" : "查看规则",
+                        // content: record.detail.cfgid_cn,
                         rowspan: record.rowspan,
                         class: "buttonText",
-                        event: "editRule",
+                        event: record.detail.cfgid_cn == 0 ? "" : "editRule",
                         ruleId: record.detail.cfgid_cn,
                         recordId: record.id,
                     });
@@ -117,9 +118,24 @@ export default {
                             ...positionPool.splice(0, 1),
                             ...qxNamePool.splice(0, 1),
                             ...qxDescPool.splice(0, 1),
-                            { content: "--", rowspan: 1 },
-                            { content: "--", rowspan: 1 },
-                            { content: "--", rowspan: 1 },
+                            {
+                                content: "--",
+                                rowspan: 1,
+                                event: "editSolution",
+                                class: "buttonText",
+                            },
+                            {
+                                content: "--",
+                                rowspan: 1,
+                                event: "editSolution",
+                                class: "buttonText",
+                            },
+                            {
+                                content: "--",
+                                rowspan: 1,
+                                event: "editSolution",
+                                class: "buttonText",
+                            },
                             ...rulePool.splice(0, 1),
                         ]);
                     } else {

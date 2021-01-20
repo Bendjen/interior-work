@@ -37,7 +37,7 @@ export default {
                 this.$Storage.originSet("password", password);
                 this.$login.update();
                 this.fetchUserInfo(true);
-                this.$router.push("/defect/index");
+                this.$router.push("/defect/bridge-file");
             });
         },
     },

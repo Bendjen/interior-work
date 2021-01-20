@@ -7,7 +7,12 @@
         @close="closeDialog"
     >
         <div class="saveBtn">
-            <el-button type="primary" size="text" @click="save">保存</el-button>
+            <el-button type="primary" size="text" @click="save"
+                >仅保存</el-button
+            >
+            <el-button type="primary" size="text" @click="saveAndApply"
+                >保存并应用</el-button
+            >
         </div>
 
         <div class="config-list">
@@ -18,7 +23,6 @@
                 :field="info.judgeval"
                 ref="conditionRule"
             />
-            <rule-info-template :info="info" ref="ruleInfo"/>
         </div>
     </el-dialog>
 </template>
