@@ -82,6 +82,7 @@
         <!-- <defect-detail ref="defectDetail" /> -->
         <solution-config-edit ref="solutionEdit" @update="pageChange(page)" />
         <rule-edit ref="ruleEdit" @update="pageChange(page)" />
+        <desc-edit ref="descEdit" @update="pageChange(page)" />
     </div>
 </template>
 <style lang="scss" src="./index.scss"></style>

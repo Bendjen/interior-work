@@ -22,6 +22,7 @@
                 accept=".docx"
                 name="qxFiles"
                 :show-file-list="false"
+                :before-upload="beforeUpload"
                 :on-success="uploadSuccess"
                 :on-change="fileChange"
                 :data="uploadForm"
@@ -87,7 +88,7 @@
                     </p>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="340" align="center">
+            <el-table-column label="操作" width="450" align="center">
                 <template slot-scope="scope">
                     <el-button
                         type="success"
@@ -100,6 +101,12 @@
                         size="small"
                         @click="updateAnalyse(scope.row.id)"
                         >缺陷解析</el-button
+                    >
+                     <el-button
+                        type="info"
+                        size="small"
+                        @click="switchException(scope)"
+                        >查看异常</el-button
                     >
                     <el-button
                         type="primary"
@@ -138,13 +145,13 @@
             <el-form ref="form" :model="uploadForm" label-width="80px">
                 <el-form-item label="提供方">
                     <el-input
-                        v-model="uploadForm.supplier"
+                        v-model="uploadForm.provider"
                         style="width:240px"
                     ></el-input>
                 </el-form-item>
                 <el-form-item label="备注">
                     <el-input
-                        v-model="uploadForm.remark"
+                        v-model="uploadForm.memo"
                         style="width:240px"
                     ></el-input>
                 </el-form-item>
@@ -154,7 +161,7 @@
                 <el-button @click="dialogVisible = false">取消</el-button>
             </div>
         </el-dialog>
-        <item-edit ref="itemEdit" @update="pageChange(page)"/>
+        <item-edit ref="itemEdit" @update="pageChange(page)" />
     </div>
 </template>
 <style lang="scss" src="./index.scss"></style>

@@ -1,0 +1,19 @@
+.base-info {
+    // padding: 36px;
+    // min-height: 750px;
+    position: relative;
+    box-sizing: border-box;
+    // width: 100%;
+    box-sizing: border-box;
+   
+    background: #fff;
+    .el-dropdown-link {
+        cursor: pointer;
+    }
+    .el-form-item__content{
+        text-align: left;
+    }
+    .inline-lable{
+        padding: 0 20px;
+    }
+}

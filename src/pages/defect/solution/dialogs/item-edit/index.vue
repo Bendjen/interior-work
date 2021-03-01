@@ -7,8 +7,11 @@
         @close="closeDialog"
     >
         <el-form ref="form" :model="info" label-width="100px">
+            <el-form-item label="顺序号" required>
+                <el-input v-model="info.serialnum" type="number"></el-input>
+            </el-form-item>
             <el-form-item label="编码">
-                <el-input v-model="info.code"></el-input>
+                <el-input v-model="info.code" :disabled="!!info.id"></el-input>
             </el-form-item>
             <el-form-item label="工程名称">
                 <el-input v-model="info.prjname"></el-input>
@@ -21,9 +24,6 @@
             </el-form-item>
             <el-form-item label="备注">
                 <el-input v-model="info.remark"></el-input>
-            </el-form-item>
-            <el-form-item label="顺序号">
-                <el-input v-model="info.serialnum"></el-input>
             </el-form-item>
             <el-form-item label="是否启用">
                 <el-switch

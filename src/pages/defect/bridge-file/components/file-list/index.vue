@@ -22,6 +22,7 @@
                 accept=".docx"
                 name="qxFiles"
                 :show-file-list="false"
+                :before-upload="beforeUpload"
                 :on-success="uploadSuccess"
                 :on-change="fileChange"
                 :data="uploadForm"
@@ -87,7 +88,7 @@
                     </p>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" width="340" align="center">
+            <el-table-column label="操作" width="450" align="center">
                 <template slot-scope="scope">
                     <el-button
                         type="success"
@@ -102,10 +103,16 @@
                         >缺陷解析</el-button
                     >
                     <el-button
+                        type="info"
+                        size="small"
+                        @click="switchException(scope)"
+                        >查看异常</el-button
+                    >
+                    <el-button
                         type="primary"
                         size="small"
                         @click="editItem(scope.row.id)"
-                        >编辑</el-button
+                        >修改</el-button
                     >
 
                     <el-button
@@ -138,13 +145,13 @@
             <el-form ref="form" :model="uploadForm" label-width="80px">
                 <el-form-item label="提供方">
                     <el-input
-                        v-model="uploadForm.supplier"
+                        v-model="uploadForm.provider"
                         style="width:240px"
                     ></el-input>
                 </el-form-item>
                 <el-form-item label="备注">
                     <el-input
-                        v-model="uploadForm.remark"
+                        v-model="uploadForm.memo"
                         style="width:240px"
                     ></el-input>
                 </el-form-item>

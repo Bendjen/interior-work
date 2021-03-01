@@ -11,6 +11,13 @@ export default {
         };
     },
 
+    props: {
+        cfgtype: {
+            type: [String, Number],
+            default: 1,
+        },
+    },
+
     mounted() {},
 
     methods: {
@@ -39,13 +46,20 @@ export default {
             this.clear();
         },
         save() {
-            SERVICE.saveSolution(this.info).then((res) => {
+            if (this.info.serialnum === "") {
+                return this.$alert("顺序号必须填写");
+            }
+            SERVICE.saveSolution({
+                ...this.info,
+                status: this.info.status === "" ? "0" : this.info.status,
+                cfgtype: this.cfgtype,
+            }).then((res) => {
                 this.$notify.success({
                     title: "保存成功",
                     message: "方案编辑已保存",
                 });
                 this.closeDialog();
-                this.$emit("update")
+                this.$emit("update");
             });
         },
     },

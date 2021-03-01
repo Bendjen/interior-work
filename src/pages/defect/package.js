@@ -20,6 +20,15 @@ export default {
             },
         },
         {
+            id: "tunnel-detail",
+            meta: {
+                title: "隧道分析",
+                parent: {
+                    title: "缺陷分析",
+                },
+            },
+        },
+        {
             id: "rule",
             meta: {
                 title: "规则配置",

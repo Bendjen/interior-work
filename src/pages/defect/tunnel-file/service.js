@@ -10,12 +10,14 @@ export default requestCreator({
     fetchFileItem: "/jtyh/qlqxgl/busisdqxgl/getwjitem",
     saveFile: "/jtyh/qlqxgl/busisdqxgl/savewj",
 
-    fetchRuleItem: "/jtyh/qlqxgl/busiqlqxgl/getcfgitem",
-    safeRule: "/jtyh/qlqxgl/busiqlqxgl/savecfg",
+    fetchRuleItem: "/jtyh/qlqxgl/basqxglcfg/getcfgitem",
+    safeRule: "/jtyh/qlqxgl/basqxglcfg/savecfg",
     fetchSolutionOption: {
-        url: "/jtyh/qlqxgl/busiqlqxgl/getczfalist",
+        url: "/jtyh/qlqxgl/basqxglcfg/getczfalist",
         hideLoading: true,
     },
-    saveSolutionConfig: "/jtyh/qlqxgl/busiqlqxgl/saveqxfa",
-    deleteSolution: "/jtyh/qlqxgl/busiqlqxgl/deleteqxfa",
+
+    saveSolutionConfig: "/jtyh/qlqxgl/busisdqxgl/saveqxfa",
+    deleteSolution: "/jtyh/qlqxgl/busisdqxgl/deleteqxfa",
+    copyTunnelCad: "/jtyh/qlqxgl/busisdqxgl/getcadcmdist",
 });

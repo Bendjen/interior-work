@@ -7,12 +7,22 @@ export default {
             type: String,
             default: "",
         },
+        cfgtype: {
+            type: [String, Number],
+            default: 1,
+        },
     },
 
     watch: {
         field: {
             handler(value) {
                 this.ruleList = this.tsToArr(value);
+            },
+            immediate: true,
+        },
+        cfgtype: {
+            handler(value) {
+                this.remoteMethod("");
             },
             immediate: true,
         },
@@ -27,7 +37,7 @@ export default {
     },
 
     mounted() {
-        this.remoteMethod("");
+        // this.remoteMethod("");
     },
 
     methods: {
@@ -117,7 +127,7 @@ export default {
             SERVICE.fetchSolutionOption({
                 "page.search": query,
                 "page.count": 999,
-                cfgtype:this.cfgtype || 1
+                cfgtype: this.cfgtype,
             }).then((res) => {
                 this.options = res.resdata;
                 this.searchLoading = false;

@@ -1,6 +1,8 @@
 import { saveAs } from "file-saver";
+import { Loading } from "element-ui";
 import SERVICE from "@/pages/defect/service";
-import ItemEdit from "./dialogs/item-edit"
+import ItemEdit from "./dialogs/item-edit";
+let uploading = null;
 
 export default {
     name: "file-list",
@@ -12,8 +14,8 @@ export default {
             pageCount: 10,
             date: "",
             uploadForm: {
-                supplier: "",
-                remark: "",
+                provider: "",
+                memo: "",
             },
             dialogVisible: false,
         };
@@ -23,7 +25,7 @@ export default {
         this.fetchFileList(1);
     },
 
-    components:{ItemEdit},
+    components: { ItemEdit },
 
     methods: {
         fetchFileList(page) {
@@ -40,6 +42,9 @@ export default {
         },
         switchDetail(scope) {
             this.$emit("swicth-detail", scope.row);
+        },
+        switchException(scope){
+            this.$emit("switch-exception", scope.row);
         },
         pageChange(page) {
             this.fetchFileList(page);
@@ -58,10 +63,18 @@ export default {
                 });
             });
         },
-
+        beforeUpload() {
+            uploading = Loading.service({
+                fullscreen: false,
+                lock: true,
+                text: "请稍候",
+                customClass: "request-loading",
+            });
+        },
         uploadSuccess(res) {
             this.$refs.uploader.clearFiles();
             this.dialogVisible = false;
+            uploading.close();
             if (res.status == "ng") {
                 this.$notify.error({
                     title: "错误",
@@ -92,6 +105,7 @@ export default {
                     type: 1,
                     tid: id,
                 }).then((res) => {
+                    this.$emit("clear");
                     this.$notify.success({
                         title: "更新成功",
                         message: "所选文件已重新解析",
@@ -113,8 +127,8 @@ export default {
                 });
             });
         },
-        editItem(id){
-            this.$refs.itemEdit.open(id)
-        }
+        editItem(id) {
+            this.$refs.itemEdit.open(id);
+        },
     },
 };

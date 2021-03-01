@@ -1,0 +1,25 @@
+.excel {
+    // padding: 36px;
+    // min-height: 750px;
+    position: relative;
+    box-sizing: border-box;
+    // width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+    background: #fff;
+    .el-dropdown-link {
+        cursor: pointer;
+    }
+    .el-form-item__content{
+        text-align: left;
+    }
+    .inline-lable{
+        padding: 0 20px;
+    }
+    .inputCell{
+        min-width: 20px;
+        border: 1px solid #e5e5e5;
+        padding: 0 15px;
+        text-align: center;
+    }
+}

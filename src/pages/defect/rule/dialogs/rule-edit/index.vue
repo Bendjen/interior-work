@@ -17,8 +17,9 @@
             <condition-rule-template
                 :field="info.judgeval"
                 ref="conditionRule"
+                :cfgtype="cfgtype"
             />
-            <rule-info-template :info="info" ref="ruleInfo"/>
+            <rule-info-template :info="info" :cfgtype="2" ref="ruleInfo" />
         </div>
     </el-dialog>
 </template>

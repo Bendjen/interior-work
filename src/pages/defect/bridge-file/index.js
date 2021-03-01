@@ -1,11 +1,12 @@
 import FileList from "./components/file-list";
 import DefectInfo from "./components/defect-info";
+import ExceptionInfo from "./components/exception-info";
 
 export default {
     name: "defect-analysis-index",
     data() {
         return {
-            pageIndex: 1,
+            pageIndex: "file",
             tableData: [],
             detailList: [],
             currentFileId: "",
@@ -16,6 +17,7 @@ export default {
     components: {
         FileList,
         DefectInfo,
+        ExceptionInfo,
     },
 
     mounted() {
@@ -24,13 +26,25 @@ export default {
 
     methods: {
         backToFileList() {
-            this.pageIndex = 1;
+            this.pageIndex = "file";
         },
 
         swicthDetail(item) {
-            this.pageIndex = 2;
+            this.pageIndex = "defect";
             this.currentFileId = item.id;
             this.currentFileName = item.detail.filename;
+        },
+        swicthException(item) {
+            this.pageIndex = "exception";
+            this.currentFileId = item.id;
+            this.currentFileName = item.detail.filename;
+        },
+        clearFileInfo() {
+            this.currentFileId = "";
+            this.currentFileName = "";
+        },
+        scrollTop() {
+            this.$refs.topBtn.scrollToTop();
         },
     },
 };

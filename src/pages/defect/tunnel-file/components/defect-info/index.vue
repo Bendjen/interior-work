@@ -6,15 +6,36 @@
                 <span>返回文件列表</span>
             </el-button>
             <p>{{ title }}</p>
-            <el-button
+            <!-- <el-button
                 v-if="chapterList.length > 0"
                 type="text"
                 size="large"
                 @click="updateChapter"
                 >更新当前章节</el-button
-            >
+            > -->
+            <el-dropdown @command="listenCommand">
+                <span class="el-dropdown-link">
+                    更多操作<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="updateChapter"
+                        >重新解析当前隧道缺陷数据</el-dropdown-item
+                    >
+                    <el-dropdown-item command="copyCad"
+                        ><span id="copyBtn"
+                            >复制当前隧道全部CAD命令</span
+                        ></el-dropdown-item
+                    >
+                    <el-dropdown-item command="configData"
+                        ><span id="configData"
+                            >配置当前隧道基础数据</span
+                        ></el-dropdown-item
+                    >
+                </el-dropdown-menu>
+            </el-dropdown>
+            <button class="copyWhole" v-show="false"></button>
+            <button class="copyItem" v-show="false"></button>
         </h1>
-
         <div v-if="chapterList.length > 0">
             <el-tabs tab-position="left" @tab-click="tabClick" v-model="tab">
                 <el-tab-pane
@@ -31,6 +52,7 @@
                                 <td rowspan="2">缺陷描述</td>
                                 <td rowspan="1" colspan="3">处置方案</td>
                                 <td rowspan="2" width="60">采用规则</td>
+                                <td rowspan="2" width="60">CAD命令</td>
                             </tr>
                             <tr>
                                 <td rowspan="1">工程名称</td>
@@ -48,10 +70,11 @@
                                     :key="index"
                                     :rowspan="item.rowspan"
                                     :class="item.class"
-                                    @click="handleEvent(item)"
-                                >
-                                    {{ item.content }}
-                                </td>
+                                    @click="handleEvent(item, $event)"
+                                    :style="{ width: item.width || 'auto' }"
+                                    v-html="item.content"
+                                    :title="item.desc"
+                                ></td>
                             </tr>
                         </tbody>
                     </table>
@@ -82,6 +105,8 @@
         <!-- <defect-detail ref="defectDetail" /> -->
         <solution-config-edit ref="solutionEdit" @update="pageChange(page)" />
         <rule-edit ref="ruleEdit" @update="pageChange(page)" />
+        <desc-edit ref="descEdit" @update="pageChange(page)" />
+        <data-config ref="dataConfig" @update="pageChange(page)" />
     </div>
 </template>
 <style lang="scss" src="./index.scss"></style>

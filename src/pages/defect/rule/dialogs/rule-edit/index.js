@@ -21,6 +21,13 @@ export default {
         };
     },
 
+    props: {
+        cfgtype: {
+            type: [String, Number],
+            default: 1,
+        },
+    },
+
     mounted() {},
 
     components: {
@@ -59,14 +66,19 @@ export default {
         },
 
         save(callback) {
-            SERVICE.safeRule({
+            let params = {
                 ...this.info,
                 noneval: this.$refs.exceptRule.tsToStr(),
                 filterval: this.$refs.containRule.tsToStr(),
                 parameval: this.$refs.paramRule.tsToStr(),
                 judgeval: this.$refs.conditionRule.tsToStr(),
                 ...this.$refs.ruleInfo.fetchForm(),
-            }).then((res) => {
+                cfgtype: this.cfgtype,
+            };
+            if (params.serialnum === "") {
+                return this.$alert("优先级必须填写");
+            }
+            SERVICE.safeRule(params).then((res) => {
                 this.$set(this.info, "editdate", res.resdata.editdate);
                 if (typeof callback == "function") {
                     callback();
@@ -76,6 +88,8 @@ export default {
                         message: "规则已更新",
                     });
                 }
+                this.close();
+                this.$emit("update");
             });
         },
 
@@ -116,3 +130,4 @@ export default {
         },
     },
 };
+

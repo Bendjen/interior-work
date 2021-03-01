@@ -7,6 +7,10 @@ export default {
             type: Object,
             default: {},
         },
+        cfgtype: {
+            type: [String, Number],
+            default: 1,
+        },
     },
 
     watch: {
@@ -18,8 +22,8 @@ export default {
                     unittype,
                     serialnum,
                     memo,
-                    status,
-                    parttype: parttype ? parttype.split(",") : "",
+                    status : status === '' ? '0' : status,
+                    parttype: parttype ? parttype.split(",") : [],
                 };
             },
             immediate: true,

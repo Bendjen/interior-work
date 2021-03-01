@@ -83,7 +83,7 @@
             >
             </el-pagination>
         </div>
-        <item-edit ref="itemEdit" @update="pageChange(page)" />
+        <item-edit ref="itemEdit" :cfgtype="cfgtype" @update="pageChange(page)" />
     </div>
 </template>
 <style lang="scss" src="./index.scss"></style>

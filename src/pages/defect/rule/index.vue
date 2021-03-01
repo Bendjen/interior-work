@@ -121,7 +121,7 @@
             >
             </el-pagination>
         </div>
-        <rule-edit ref="ruleEdit" @update="pageChange(page)" />
+        <rule-edit ref="ruleEdit" :cfgtype="cfgtype" @update="pageChange(page)" />
     </div>
 </template>
 <style lang="scss" src="./index.scss"></style>

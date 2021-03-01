@@ -2,7 +2,7 @@ export default {
     name: "left-side",
     data() {
         return {
-            activeIndex: "bridge-file",
+            activeIndex: "defect/bridge-file",
             menu: [
                 {
                     title: "缺陷分析",
@@ -11,22 +11,22 @@ export default {
                     children: [
                         {
                             title: "桥梁文件",
-                            id: "bridge-file",
+                            id: "defect/bridge-file",
                             icon: "el-icon-document-copy",
                         },
                         {
                             title: "隧道文件",
-                            id: "tunnel-file",
+                            id: "defect/tunnel-file",
                             icon: "el-icon-document-copy",
                         },
                         {
                             title: "规则配置",
-                            id: "rule",
+                            id: "defect/rule",
                             icon: "el-icon-s-tools",
                         },
                         {
                             title: "方案配置",
-                            id: "solution",
+                            id: "defect/solution",
                             icon: "el-icon-s-tools",
                         },
                     ],
@@ -44,12 +44,15 @@ export default {
             ],
         };
     },
-
-    mounted() {},
+    watch: {
+        $route() {
+            this.activeIndex = this.$route.name;
+        },
+    },
 
     methods: {
         selectMenu(index) {
-            this.$router.push(`/defect/${index}`);
+            this.$router.push({ name: index });
         },
     },
 };

@@ -1,7 +1,8 @@
 import SERVICE from "@/pages/defect/service";
-import DefectDetail from "../defect-detail";
+// import DefectDetail from "../defect-detail";
 import SolutionConfigEdit from "./dialogs/solution-edit";
 import RuleEdit from "./dialogs/rule-edit";
+import DescEdit from "./dialogs/desc-edit";
 
 export default {
     name: "defect-info",
@@ -20,7 +21,7 @@ export default {
         title: { default: "", type: String },
     },
 
-    components: { DefectDetail, SolutionConfigEdit, RuleEdit },
+    components: {  SolutionConfigEdit, RuleEdit, DescEdit },
 
     watch: {
         id() {
@@ -36,14 +37,16 @@ export default {
 
     methods: {
         fetchFileChapter() {
-            SERVICE.fetchFileChapter({
-                pid: this.id,
-                "page.count": 999,
-            }).then((res) => {
-                this.chapterList = res.resdata;
-                this.tab = "0";
-                this.tabClick();
-            });
+            if (this.id) {
+                SERVICE.fetchFileChapter({
+                    pid: this.id,
+                    "page.count": 999,
+                }).then((res) => {
+                    this.chapterList = res.resdata;
+                    this.tab = "0";
+                    this.tabClick();
+                });
+            }
         },
         fetchDetail() {
             this.$emit();
@@ -63,6 +66,9 @@ export default {
                 "page.start": page,
                 "page.count": this.pageCount,
             }).then((res) => {
+                if (page != this.page) {
+                    this.$emit("scroll-top");
+                }
                 // console.log(this.serialize2(res.resdata));
                 this.defectList = this.serialize(res.resdata);
                 this.page = res.reshead.page.start;
@@ -103,14 +109,20 @@ export default {
                     qxDescPool.push({
                         content: record.detail.diseasedesc,
                         rowspan: record.rowspan,
+                        recordId: record.id,
+                        class: "buttonText",
+                        event: "editDesc",
                     });
                     rulePool.push({
-                        content: record.detail.cfgid_cn == 0 ? "" : "查看规则",
+                        content:
+                            record.detail.cfgid == 0
+                                ? ""
+                                : record.detail.cfgid_cn,
                         // content: record.detail.cfgid_cn,
                         rowspan: record.rowspan,
                         class: "buttonText",
-                        event: record.detail.cfgid_cn == 0 ? "" : "editRule",
-                        ruleId: record.detail.cfgid_cn,
+                        event: record.detail.cfgid == 0 ? "" : "editRule",
+                        ruleId: record.detail.cfgid,
                         recordId: record.id,
                     });
                     if (record.detail.jsonCzfa.length == 0) {
@@ -123,18 +135,24 @@ export default {
                                 rowspan: 1,
                                 event: "editSolution",
                                 class: "buttonText",
+                                qxid: record.id,
+                                list: [],
                             },
                             {
                                 content: "--",
                                 rowspan: 1,
                                 event: "editSolution",
                                 class: "buttonText",
+                                qxid: record.id,
+                                list: [],
                             },
                             {
                                 content: "--",
                                 rowspan: 1,
                                 event: "editSolution",
                                 class: "buttonText",
+                                qxid: record.id,
+                                list: [],
                             },
                             ...rulePool.splice(0, 1),
                         ]);
@@ -195,9 +213,15 @@ export default {
             });
         },
 
-        openDetail(url) {
-            this.$refs.defectDetail.open(url);
+        editDesc(item) {
+            this.$refs.descEdit.open({
+                recordId: item.recordId,
+            });
         },
+
+        // openDetail(url) {
+        //     this.$refs.defectDetail.open(url);
+        // },
         updateChapter() {
             this.$confirm(
                 "缺陷解析将根据当前规则重新生成并覆盖原数据，是否继续？"
