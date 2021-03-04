@@ -59,6 +59,12 @@ export default {
 
     methods: {
         refresh() {
+            this.defectList = [];
+            this.page = 1;
+            this.total = 0;
+            this.pageChange(1);
+        },
+        switch() {
             if (this.defectList.length == 0) {
                 this.defectList = [];
                 this.page = 1;

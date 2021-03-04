@@ -1,19 +1,48 @@
 .base-info {
     // padding: 36px;
     // min-height: 750px;
+    overflow: visible;
     position: relative;
     box-sizing: border-box;
     // width: 100%;
     box-sizing: border-box;
-   
+    flex-wrap: wrap;
     background: #fff;
+
+    .operation-button {
+        position: absolute;
+        right: 20px;
+        top: -55px;
+        z-index: 99;
+    }
+
     .el-dropdown-link {
         cursor: pointer;
     }
-    .el-form-item__content{
+
+    .el-form-item__content {
         text-align: left;
     }
-    .inline-lable{
+
+    .inline-lable {
         padding: 0 20px;
+    }
+
+    .excel-content {
+        width: 100%;
+        margin-top: 40px;
+        border-top: 1px solid #e5e5e5;
+        padding: 40px 0;
+    }
+
+    .el-input__inner {
+        text-align: center;
+    }
+
+    .saveBtn {
+        position: absolute;
+        right: 20px;
+        top: -5px;
+        z-index: 999;
     }
 }

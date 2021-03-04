@@ -1,6 +1,8 @@
 <template>
     <div class="excel">
-        <table class="table" cellspacing="0">
+        <h3 v-if="title">{{ title }}</h3>
+
+        <table class="table" cellspacing="0" style="width:100%">
             <thead>
                 <tr>
                     <td
@@ -19,12 +21,19 @@
                             :contenteditable="true"
                             class="inputCell"
                             @blur="updateItem($event, lineIndex, itemIndex)"
-                            @focus="addLine($event,lineIndex)"
+                            @focus="addLine($event, lineIndex)"
                             v-html="item"
                             :rowIndex="itemIndex"
                             :colIndex="lineIndex"
                         ></div>
                     </td>
+                    <el-button
+                        icon="el-icon-close"
+                        v-show="lineIndex === curLindex"
+                        class="delete-icon"
+                        type="text"
+                        @click="deleteLine(lineIndex)"
+                    ></el-button>
                 </tr>
             </tbody>
         </table>

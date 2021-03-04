@@ -8,7 +8,8 @@
             <p>{{ filename }}</p>
             <div></div>
         </h1>
-        <div v-if="chapterList.length > 0">
+        <div v-if="chapterList.length > 0" style="position:relative">
+            <el-button type="text" class="refreshIcon" @click="refresh" icon="el-icon-refresh-left"></el-button>
             <el-tabs
                 tab-position="left"
                 @tab-click="swicthChapter"
@@ -42,6 +43,20 @@
                         <el-tab-pane label="衬砌数据" name="wallInfo">
                             <wall-info
                                 ref="wallInfo"
+                                :chapterid="chapterid"
+                                :fileid="fileid"
+                            />
+                        </el-tab-pane>
+                        <el-tab-pane label="雷达检测表" name="radarInfo">
+                            <radar-info
+                                ref="radarInfo"
+                                :chapterid="chapterid"
+                                :fileid="fileid"
+                            />
+                        </el-tab-pane>
+                        <el-tab-pane label="衬砌处治表" name="dealInfo">
+                            <deal-info
+                                ref="dealInfo"
                                 :chapterid="chapterid"
                                 :fileid="fileid"
                             />

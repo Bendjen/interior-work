@@ -5,7 +5,9 @@
                 <el-table-column align="center" label="桩号">
                     <template slot-scope="scope"
                         >{{ scope.row.detail.sidestake
-                        }}{{ scope.row.detail.stake }}</template
+                        }}{{ Math.floor(scope.row.detail.stake / 1000) }}+{{
+                            scope.row.detail.stake % 1000
+                        }}</template
                     >
                 </el-table-column>
                 <el-table-column align="center" label="衬砌设计厚度(cm)">

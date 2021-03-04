@@ -54,7 +54,6 @@ export default {
             this.total = 0;
             this.fetchList(1);
         },
-
         switch() {
             if (this.list.length == 0) {
                 this.list = [];
@@ -66,8 +65,7 @@ export default {
 
         fetchList(page) {
             SERVICE.fetchList({
-                fileid: this.fileid,
-                zjid: this.chapterid,
+                tid: this.chapterid,
                 "page.start": page,
                 "page.count": this.pageCount,
             }).then((res) => {

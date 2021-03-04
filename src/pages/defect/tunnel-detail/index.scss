@@ -21,4 +21,15 @@
             color: #909399;
         }
     }
+    .el-tabs--border-card>.el-tabs__content{
+        overflow: visible;
+    }
+    .refreshIcon{
+        font-size:22px;
+        position:absolute;
+        right: 10px;
+        top: -3px;
+        top: -3px;
+        z-index: 99;
+    }
 }

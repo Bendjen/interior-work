@@ -5,21 +5,38 @@
     box-sizing: border-box;
     // width: 100%;
     box-sizing: border-box;
-    box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
+    // box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
     background: #fff;
+    padding: 0 60px;
+
     .el-dropdown-link {
         cursor: pointer;
     }
-    .el-form-item__content{
+
+    .el-form-item__content {
         text-align: left;
     }
-    .inline-lable{
+
+    .inline-lable {
         padding: 0 20px;
     }
-    .inputCell{
+
+    .inputCell {
         min-width: 20px;
         border: 1px solid #e5e5e5;
-        padding: 0 15px;
+        padding: 10px 15px;
         text-align: center;
+        font-size: 14px;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .delete-icon {
+        color: red;
+        font-size: 16px;
+        position: absolute;
+        right: 20px;
     }
 }

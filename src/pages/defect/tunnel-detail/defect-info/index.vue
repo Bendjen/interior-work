@@ -1,66 +1,67 @@
 <template>
     <div class="defect-info">
+        <div
+            flex="main:right"
+            class="operation-button"
+            style="margin-bottom:10px"
+        >
+            <el-dropdown @command="listenCommand">
+                <span class="el-dropdown-link">
+                    <el-button
+                        type="text"
+                        class="refreshIcon"
+                        icon="el-icon-s-unfold"
+                    ></el-button>
+                    <!-- <i class="el-icon-more el-icon--right"></i> -->
+                    <!-- <el-button type="text" class="refreshIcon" @click="refresh" icon="el-icon-refresh-left"></el-button> -->
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="updateChapter"
+                        >重新解析缺陷</el-dropdown-item
+                    >
+                    <el-dropdown-item command="copyCad"
+                        ><span id="copyBtn">复制所有CAD</span></el-dropdown-item
+                    >
+                </el-dropdown-menu>
+            </el-dropdown>
+            <button class="copyWhole" v-show="false"></button>
+            <button class="copyItem" v-show="false"></button>
+        </div>
         <div v-if="defectList.length > 0">
-            <div flex="main:start">
-                <table class="table" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <td rowspan="2" width="100">所处位置</td>
-                            <td rowspan="2">缺陷简称</td>
-                            <td rowspan="2">缺陷描述</td>
-                            <td rowspan="1" colspan="3">处置方案</td>
-                            <td rowspan="2" width="60">采用规则</td>
-                            <td rowspan="2" width="60">CAD命令</td>
-                        </tr>
-                        <tr>
-                            <td rowspan="1">工程名称</td>
-                            <td rowspan="1">对应方法</td>
-                            <td rowspan="1" width="60">工程用量</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="(line, lineIndex) in defectList"
-                            :key="lineIndex"
-                        >
-                            <td
-                                v-for="(item, index) in line"
-                                :key="index"
-                                :rowspan="item.rowspan"
-                                :class="item.class"
-                                @click="handleEvent(item, $event)"
-                                :style="{ width: item.width || 'auto' }"
-                                v-html="item.content"
-                                :title="item.desc"
-                            ></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div flex="main:right" style="margin-bottom:10px">
-                    <el-dropdown @command="listenCommand">
-                        <span class="el-dropdown-link">
-                            <i class="el-icon-more el-icon--right"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item command="updateChapter"
-                                >重新解析缺陷</el-dropdown-item
-                            >
-                            <el-dropdown-item command="copyCad"
-                                ><span id="copyBtn"
-                                    >复制所有CAD</span
-                                ></el-dropdown-item
-                            >
-                            <!-- <el-dropdown-item command="configData"
-                        ><span id="configData"
-                            >配置当前隧道基础数据</span
-                        ></el-dropdown-item
-                    > -->
-                        </el-dropdown-menu>
-                    </el-dropdown>
-                    <button class="copyWhole" v-show="false"></button>
-                    <button class="copyItem" v-show="false"></button>
-                </div>
-            </div>
+            <table class="table" cellspacing="0">
+                <thead>
+                    <tr>
+                        <td rowspan="2" width="100">所处位置</td>
+                        <td rowspan="2" width="100">缺陷简称</td>
+                        <td rowspan="2">缺陷描述</td>
+                        <td rowspan="1" colspan="3">处置方案</td>
+                        <td rowspan="2" width="60">采用规则</td>
+                        <td rowspan="2" width="40">CAD命令</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="1">工程名称</td>
+                        <td rowspan="1">对应方法</td>
+                        <td rowspan="1" width="60">工程用量</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        v-for="(line, lineIndex) in defectList"
+                        :key="lineIndex"
+                    >
+                        <td
+                            v-for="(item, index) in line"
+                            :key="index"
+                            :rowspan="item.rowspan"
+                            :class="item.class"
+                            @click="handleEvent(item, $event)"
+                            :style="{ width: item.width || 'auto' }"
+                            v-html="item.content"
+                            :title="item.desc"
+                        ></td>
+                    </tr>
+                </tbody>
+            </table>
 
             <div style="margin-top: 24px" flex="main:center">
                 <el-pagination

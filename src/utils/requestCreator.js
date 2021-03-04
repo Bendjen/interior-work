@@ -15,6 +15,8 @@ export default function requestCreator(list) {
             let data = params;
             if (config.formData) {
                 data = toFormData(params);
+            } else if (config.array) {
+                data = params;
             } else {
                 data = qs.stringify(params);
             }

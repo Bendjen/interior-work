@@ -1,5 +1,6 @@
 import SERVICE from "./service";
 import { Loading } from "element-ui";
+import ClipboardJS from "clipboard";
 let uploading = null;
 
 export default {
@@ -20,7 +21,24 @@ export default {
 
     components: {},
 
-    mounted() {},
+    mounted() {
+        let clipboardWhole = new ClipboardJS(".copyWhole", {
+            text: (trigger) => {
+                return this.wholeClipBoard;
+            },
+        });
+        clipboardWhole.on("success", (e) => {
+            this.$message.success("命令已复制到剪贴板");
+        });
+        let clipboardItem = new ClipboardJS(".copyItem", {
+            text: (trigger) => {
+                return this.itemClipBoard;
+            },
+        });
+        clipboardItem.on("success", (e) => {
+            this.$message.success("命令已复制到剪贴板");
+        });
+    },
 
     methods: {
         beforeUpload() {
@@ -66,8 +84,7 @@ export default {
 
         fetchList(page) {
             SERVICE.fetchList({
-                fileid: this.fileid,
-                zjid: this.chapterid,
+                tid: this.chapterid,
                 "page.start": page,
                 "page.count": this.pageCount,
             }).then((res) => {
@@ -77,6 +94,18 @@ export default {
                 this.list = res.resdata;
                 this.page = res.reshead.page.start;
                 this.total = parseInt(res.reshead.page.total);
+            });
+        },
+
+        listenCommand(command) {
+            this[command]();
+        },
+        copyCad() {
+            SERVICE.fetchCad({ tid: this.chapterid }).then((res) => {
+                this.wholeClipBoard = res.resdata
+                    .map((item) => item.item)
+                    .join("\n");
+                document.querySelector(".copyWhole").click();
             });
         },
     },

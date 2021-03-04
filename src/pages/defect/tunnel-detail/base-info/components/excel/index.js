@@ -5,10 +5,15 @@ export default {
             type: Array,
             default: ["", "", ""],
         },
+        title: {
+            type: String,
+            default: "",
+        },
     },
     data() {
         return {
             excel: [],
+            curLindex: "",
         };
     },
 
@@ -21,7 +26,6 @@ export default {
     methods: {
         updateItem(e, lineIndex, itemIndex) {
             this.$set(this.excel[lineIndex], itemIndex, e.target.innerText);
-
             if (
                 lineIndex == this.excel.length - 2 &&
                 e.target.innerText === "" &&
@@ -35,7 +39,7 @@ export default {
             if (lineIndex == this.excel.length - 1) {
                 this.excel.push(this.thead.map(() => ""));
             }
-
+            this.curLindex = lineIndex;
             e.target.addEventListener("paste", this.pasteDeal);
         },
         pasteDeal(event) {
@@ -47,9 +51,15 @@ export default {
             let curColPosition = parseInt(
                 event.target.attributes.colIndex.nodeValue
             );
-            if (clipText.includes("\n") || clipText.includes("\t")) {
+
+            let brSymbol = "\n";
+            if (clipText.includes("\r\n")) brSymbol = "\r\n";
+
+            if (clipText.includes(brSymbol) || clipText.includes("\t")) {
                 event.preventDefault();
-                let list = clipText.split("\n").map((line) => line.split("\t"));
+                let list = clipText
+                    .split(brSymbol)
+                    .map((line) => line.split("\t"));
                 let rowNum = list[0].length;
                 let colNum = list.length;
                 if (rowNum > theadLength) {
@@ -71,7 +81,6 @@ export default {
 
                         list.forEach((line, lineIndex) => {
                             line.forEach((item, itemIndex) => {
-                                console.log(lineIndex, itemIndex);
                                 this.$set(
                                     this.excel[curColPosition + lineIndex],
                                     curRowPosition + itemIndex,
@@ -81,6 +90,20 @@ export default {
                         });
                     }
                 }
+            }
+        },
+        setExcel(excel) {
+            this.excel = excel;
+        },
+        clear() {
+            this.excel = [this.thead.map(() => "")];
+        },
+        deleteLine(index) {
+            if (this.excel.length > 1) {
+                this.excel.splice(index, 1);
+                this.$emit("delete-line", index);
+            } else {
+                this.$message.warning("已经是最后一行");
             }
         },
     },
