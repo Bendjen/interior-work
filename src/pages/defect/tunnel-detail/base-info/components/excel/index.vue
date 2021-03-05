@@ -16,7 +16,7 @@
             </thead>
             <tbody>
                 <tr v-for="(line, lineIndex) in excel" :key="lineIndex">
-                    <td v-for="(item, itemIndex) in line" :key="itemIndex">
+                    <td v-for="(item, itemIndex) in line.list" :key="itemIndex">
                         <div
                             :contenteditable="true"
                             class="inputCell"
@@ -32,8 +32,9 @@
                         v-show="lineIndex === curLindex"
                         class="delete-icon"
                         type="text"
-                        @click="deleteLine(lineIndex)"
+                        @click="deleteLine(lineIndex,line)"
                     ></el-button>
+                    
                 </tr>
             </tbody>
         </table>

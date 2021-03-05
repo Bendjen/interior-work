@@ -13,4 +13,11 @@
         font-weight: normal;
         font-size: 13px;
     }
+
+    .operation-button {
+        position: absolute;
+        right: 0px;
+        top: -40px;
+        z-index: 99;
+    }
 }

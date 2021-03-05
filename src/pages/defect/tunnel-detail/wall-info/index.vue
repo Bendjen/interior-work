@@ -1,5 +1,30 @@
 <template>
     <div class="wall-info">
+        <div
+            flex="main:right"
+            class="operation-button"
+            style="margin-bottom:10px"
+        >
+            <el-dropdown @command="listenCommand">
+                <span class="el-dropdown-link">
+                    <el-button
+                        type="text"
+                        class="refreshIcon"
+                        icon="el-icon-s-unfold"
+                    ></el-button>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="fitData"
+                        ><span id="copyBtn">重新匹配</span></el-dropdown-item
+                    >
+                    <el-dropdown-item command="refresh"
+                        ><span id="copyBtn">刷新</span></el-dropdown-item
+                    >
+                </el-dropdown-menu>
+            </el-dropdown>
+            <button class="copyWhole" v-show="false"></button>
+            <button class="copyItem" v-show="false"></button>
+        </div>
         <div v-if="list.length > 0">
             <el-table :data="list" style="width: 100%" :height="600">
                 <el-table-column align="center" label="桩号">

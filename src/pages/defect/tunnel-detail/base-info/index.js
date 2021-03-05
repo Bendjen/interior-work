@@ -21,7 +21,7 @@ export default {
             sdEndHundredStake: "",
             lcStartThousandStake: "",
             lcStartHundredStake: "",
-            typeOriginData: [],
+            // typeOriginData: [],
         };
     },
 
@@ -125,27 +125,33 @@ export default {
         fetchTypeList() {
             SERVICE.fetchTypeList({ tid: this.fileid }).then((res) => {
                 let excel = res.resdata.map((item) => {
-                    return [
-                        item.detail.zhtypeid,
-                        item.detail.cqtypeid,
-                        item.detail.echd,
-                    ];
+                    return {
+                        id: item.id,
+                        list: [
+                            item.detail.zhtypeid,
+                            item.detail.cqtypeid,
+                            item.detail.echd,
+                        ],
+                    };
                 });
-                excel.push(["", "", ""]);
-                this.typeOriginData = res.resdata;
+                excel.push({ id: "", list: ["", "", ""] });
+                // this.typeOriginData = res.resdata;
                 this.$refs[`excel3`].setExcel(excel);
             });
         },
         saveTypeList() {
-            let data = this.$refs[`excel3`].excel.filter((item) => item[0]);
-            let TransData = data.map(([zhtypeid, cqtypeid, echd], index) => {
+            let data = this.$refs[`excel3`].excel.filter(
+                (item) => item.list[0]
+            );
+            let TransData = data.map(({ id, list }, index) => {
+                const [zhtypeid, cqtypeid, echd] = list;
                 return {
                     fileid: this.fileid,
                     zhtypeid,
                     cqtypeid,
                     echd,
                     serialnum: index,
-                    id: data[index].id || "",
+                    id: id || "",
                     memo: "",
                 };
             });
@@ -208,29 +214,40 @@ export default {
             SERVICE.fetchTechList({ zjid: this.chapterid, type }).then(
                 (res) => {
                     let excel = res.resdata.map((item) => {
-                        return [item.detail.startstake, item.detail.typeid];
+                        return {
+                            // id: item.id,
+                            id: "",
+                            list: [item.detail.startstake, item.detail.typeid],
+                        };
                     });
-                    excel.push(["", ""]);
+                    excel.push({ id: "", list: ["", ""] });
                     this.$refs[`excel${type}`].setExcel(excel);
                 }
             );
         },
         saveTechList(type) {
             let data = this.$refs[`excel${type}`].excel.filter(
-                (item) => item[0]
+                (item) => item.list[0] !== ""
             );
-            let TransData = data.map(([startstake, typeid], index) => {
+
+            let TransData = data.map(({ id, list }, index) => {
+                const [startstake, typeid] = list;
                 return {
                     zjid: this.chapterid,
                     startstake: startstake,
                     jstype: type,
                     typeid: typeid,
                     serialnum: index,
-                    // id: data[index].id || "",
+                    id: id || "",
                     memo: "",
                 };
             });
-            SERVICE.saveTechList(TransData)
+
+            SERVICE.saveTechList({
+                id: this.chapterid,
+                jstype: type,
+                lstWyJscs: TransData,
+            })
                 .then((res) => {
                     this.$notify.success({
                         title: "保存成功",
@@ -247,9 +264,11 @@ export default {
                 this.$refs[`excel${type}`].clear();
             }
         },
-        deleteLine(index) {
+        deleteLine(id) {
             let data = this.$refs[`excel3`].excel.filter((item) => item[0]);
-            // SERVICE.deleteLine({tid:data[]})
+            SERVICE.deleteLine({ tid: id }).then((res) => {
+                this.refresh();
+            });
         },
         listenCommand(command) {
             this[command]();

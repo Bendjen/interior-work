@@ -79,5 +79,26 @@ export default {
                 this.total = parseInt(res.reshead.page.total);
             });
         },
+
+        fitData() {
+            SERVICE.fitData({ tid: this.fileid }).then((res) => {
+                this.$notify.success({
+                    title: "匹配成功",
+                    message: "文件已重新匹配衬砌数据",
+                });
+                this.refresh();
+            });
+        },
+        listenCommand(command) {
+            this[command]();
+        },
+        copyCad() {
+            SERVICE.fetchCad({ tid: this.chapterid }).then((res) => {
+                this.wholeClipBoard = res.resdata
+                    .map((item) => item.item)
+                    .join("\n");
+                document.querySelector(".copyWhole").click();
+            });
+        },
     },
 };

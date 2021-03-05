@@ -20,12 +20,16 @@ export default {
     components: {},
 
     mounted() {
-        this.excel = [this.thead.map(() => "")];
+        this.excel = [{ id: "", list: this.thead.map(() => "") }];
     },
 
     methods: {
         updateItem(e, lineIndex, itemIndex) {
-            this.$set(this.excel[lineIndex], itemIndex, e.target.innerText);
+            this.$set(
+                this.excel[lineIndex].list,
+                itemIndex,
+                e.target.innerText
+            );
             if (
                 lineIndex == this.excel.length - 2 &&
                 e.target.innerText === "" &&
@@ -37,7 +41,7 @@ export default {
         },
         addLine(e, lineIndex) {
             if (lineIndex == this.excel.length - 1) {
-                this.excel.push(this.thead.map(() => ""));
+                this.excel.push({ id: "", list: this.thead.map(() => "") });
             }
             this.curLindex = lineIndex;
             e.target.addEventListener("paste", this.pasteDeal);
@@ -75,14 +79,17 @@ export default {
 
                         if (needLine > 0) {
                             for (let i = 0; i < needLine; i++) {
-                                this.excel.push(this.thead.map(() => ""));
+                                this.excel.push({
+                                    id: "",
+                                    list: this.thead.map(() => ""),
+                                });
                             }
                         }
 
                         list.forEach((line, lineIndex) => {
                             line.forEach((item, itemIndex) => {
                                 this.$set(
-                                    this.excel[curColPosition + lineIndex],
+                                    this.excel[curColPosition + lineIndex].list,
                                     curRowPosition + itemIndex,
                                     item
                                 );
@@ -96,12 +103,15 @@ export default {
             this.excel = excel;
         },
         clear() {
-            this.excel = [this.thead.map(() => "")];
+            this.excel = [{ id: "", list: this.thead.map(() => "") }];
         },
-        deleteLine(index) {
+        deleteLine(index, line) {
             if (this.excel.length > 1) {
-                this.excel.splice(index, 1);
-                this.$emit("delete-line", index);
+                if (line.id === "") {
+                    this.excel.splice(index, 1);
+                } else {
+                    this.$emit("delete-line", line.id);
+                }
             } else {
                 this.$message.warning("已经是最后一行");
             }

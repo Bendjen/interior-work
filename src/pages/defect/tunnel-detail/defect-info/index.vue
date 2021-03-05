@@ -22,6 +22,9 @@
                     <el-dropdown-item command="copyCad"
                         ><span id="copyBtn">复制所有CAD</span></el-dropdown-item
                     >
+                    <el-dropdown-item command="refresh"
+                        ><span id="copyBtn">刷新</span></el-dropdown-item
+                    >
                 </el-dropdown-menu>
             </el-dropdown>
             <button class="copyWhole" v-show="false"></button>

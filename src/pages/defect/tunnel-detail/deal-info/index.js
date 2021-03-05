@@ -77,5 +77,9 @@ export default {
                 this.total = parseInt(res.reshead.page.total);
             });
         },
+
+        listenCommand(command) {
+            this[command]();
+        },
     },
 };
