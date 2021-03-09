@@ -89,7 +89,7 @@ export default {
         fileid: { default: "", type: String },
     },
     mounted() {
-        let clipboardWhole = new ClipboardJS(".copyWhole", {
+        let clipboardWhole = new ClipboardJS("#baseCopyWhole", {
             text: (trigger) => {
                 return this.wholeClipBoard;
             },
@@ -97,7 +97,7 @@ export default {
         clipboardWhole.on("success", (e) => {
             this.$message.success("命令已复制到剪贴板");
         });
-        let clipboardItem = new ClipboardJS(".copyItem", {
+        let clipboardItem = new ClipboardJS("#baseCopyItem", {
             text: (trigger) => {
                 return this.itemClipBoard;
             },
@@ -275,10 +275,13 @@ export default {
         },
         copyCad() {
             SERVICE.fetchCad({ tid: this.chapterid }).then((res) => {
+                if (res.resdata.length == 0) {
+                    this.$message.error("无可导出命令");
+                }
                 this.wholeClipBoard = res.resdata
                     .map((item) => item.item)
                     .join("\n");
-                document.querySelector(".copyWhole").click();
+                document.querySelector("#baseCopyWhole").click();
             });
         },
     },

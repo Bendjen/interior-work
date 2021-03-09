@@ -22,8 +22,8 @@
                     >
                 </el-dropdown-menu>
             </el-dropdown>
-            <button class="copyWhole" v-show="false"></button>
-            <button class="copyItem" v-show="false"></button>
+            <button id="baseCopyWhole" v-show="false"></button>
+            <button id="baseCopyItem" v-show="false"></button>
         </div>
         <div flex="dir:top main:start cross:center" style="width:100%">
             <div flex="main:start cross:center box:first">

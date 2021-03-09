@@ -122,8 +122,8 @@ export default {
                     res.resdata.filename
                 );
                 this.$notify.success({
-                    title: "更新成功",
-                    message: "所选文件已重新解析",
+                    title: "导出成功",
+                    message: "文件已开始下载",
                 });
             });
         },

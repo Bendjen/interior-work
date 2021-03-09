@@ -27,8 +27,8 @@
                     >
                 </el-dropdown-menu>
             </el-dropdown>
-            <button class="copyWhole" v-show="false"></button>
-            <button class="copyItem" v-show="false"></button>
+            <button id="defectCopyWhole" v-show="false"></button>
+            <button id="defectCopyItem" v-show="false"></button>
         </div>
         <div v-if="defectList.length > 0">
             <table class="table" cellspacing="0">
@@ -37,6 +37,7 @@
                         <td rowspan="2" width="100">所处位置</td>
                         <td rowspan="2" width="100">缺陷简称</td>
                         <td rowspan="2">缺陷描述</td>
+                        <td rowspan="2">缺陷状态</td>
                         <td rowspan="1" colspan="3">处置方案</td>
                         <td rowspan="2" width="60">采用规则</td>
                         <td rowspan="2" width="40">CAD命令</td>

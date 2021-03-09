@@ -15,6 +15,9 @@
                
                 </span>
                 <el-dropdown-menu slot="dropdown">
+                     <el-dropdown-item command="exportExcel"
+                        ><span id="copyBtn">导出excel</span></el-dropdown-item
+                    >
                     <el-dropdown-item command="refresh"
                         ><span id="copyBtn">刷新</span></el-dropdown-item
                     >

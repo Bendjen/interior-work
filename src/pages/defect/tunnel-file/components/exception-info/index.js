@@ -61,7 +61,7 @@ export default {
             this.pageChange(1);
         },
         pageChange(page) {
-            SERVICE.fetchBridgeException({
+            SERVICE.fetchTunnelException({
                 // tid: this.chapterId,
                 fid: this.id,
                 "page.start": page,

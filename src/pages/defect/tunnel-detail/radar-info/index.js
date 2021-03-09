@@ -1,6 +1,7 @@
 import SERVICE from "./service";
 import { Loading } from "element-ui";
 import ClipboardJS from "clipboard";
+import { saveAs } from "file-saver";
 let uploading = null;
 
 export default {
@@ -22,7 +23,7 @@ export default {
     components: {},
 
     mounted() {
-        let clipboardWhole = new ClipboardJS(".copyWhole", {
+        let clipboardWhole = new ClipboardJS("#radarCopyWhole", {
             text: (trigger) => {
                 return this.wholeClipBoard;
             },
@@ -30,7 +31,7 @@ export default {
         clipboardWhole.on("success", (e) => {
             this.$message.success("命令已复制到剪贴板");
         });
-        let clipboardItem = new ClipboardJS(".copyItem", {
+        let clipboardItem = new ClipboardJS("#radarCopyItem", {
             text: (trigger) => {
                 return this.itemClipBoard;
             },
@@ -102,10 +103,43 @@ export default {
         },
         copyCad() {
             SERVICE.fetchCad({ tid: this.chapterid }).then((res) => {
+                if (res.resdata.length == 0) {
+                    return this.$message.error("无可导出命令");
+                }
                 this.wholeClipBoard = res.resdata
                     .map((item) => item.item)
                     .join("\n");
-                document.querySelector(".copyWhole").click();
+
+                document.querySelector("#radarCopyWhole").click();
+            });
+        },
+        exportExcel() {
+            SERVICE.exportExcel({
+                tid: this.fileid,
+            }).then((res) => {
+                saveAs(
+                    `/jtyh/mobile/busisafetycheck/download/${res.resdata.id}`,
+                    res.resdata.filename
+                );
+                this.$notify.success({
+                    title: "导出成功",
+                    message: "文件已开始下载",
+                });
+            });
+        },
+        rebuildExcel() {
+            SERVICE.exportExcel({
+                tid: this.fileid,
+                rebuild: 1,
+            }).then((res) => {
+                saveAs(
+                    `/jtyh/mobile/busisafetycheck/download/${res.resdata.id}`,
+                    res.resdata.filename
+                );
+                this.$notify.success({
+                    title: "导出成功",
+                    message: "文件已开始下载",
+                });
             });
         },
     },

@@ -12,19 +12,24 @@
                         class="refreshIcon"
                         icon="el-icon-s-unfold"
                     ></el-button>
-               
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command="copyCad"
                         ><span id="copyBtn">复制雷达CAD</span></el-dropdown-item
+                    >
+                    <el-dropdown-item command="exportExcel"
+                        ><span id="copyBtn">导出excel</span></el-dropdown-item
+                    >
+                    <el-dropdown-item command="rebuildExcel"
+                        ><span id="copyBtn">重新生成</span></el-dropdown-item
                     >
                     <el-dropdown-item command="refresh"
                         ><span id="copyBtn">刷新</span></el-dropdown-item
                     >
                 </el-dropdown-menu>
             </el-dropdown>
-            <button class="copyWhole" v-show="false"></button>
-            <button class="copyItem" v-show="false"></button>
+            <button id="radarCopyWhole" v-show="false"></button>
+            <button id="radarCopyItem" v-show="false"></button>
         </div>
         <div v-if="list.length > 0">
             <el-table :data="list" style="width: 100%" :height="600">

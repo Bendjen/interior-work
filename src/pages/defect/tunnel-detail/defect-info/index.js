@@ -29,7 +29,7 @@ export default {
     },
 
     mounted() {
-        let clipboardWhole = new ClipboardJS(".copyWhole", {
+        let clipboardWhole = new ClipboardJS("#defectCopyWhole", {
             text: (trigger) => {
                 return this.wholeClipBoard;
             },
@@ -37,7 +37,7 @@ export default {
         clipboardWhole.on("success", (e) => {
             this.$message.success("命令已复制到剪贴板");
         });
-        let clipboardItem = new ClipboardJS(".copyItem", {
+        let clipboardItem = new ClipboardJS("#defectCopyItem", {
             text: (trigger) => {
                 return this.itemClipBoard;
             },
@@ -112,6 +112,7 @@ export default {
                 ];
                 let qxNamePool = [];
                 let qxDescPool = [];
+                let qxStatusPool = [];
                 let rulePool = [];
                 let cadPool = [];
                 group.children.forEach((record, recordIndex) => {
@@ -125,6 +126,13 @@ export default {
                         recordId: record.id,
                         class: "buttonText",
                         event: "editDesc",
+                    });
+
+                    qxStatusPool.push({
+                        content: record.detail.extrainfo,
+                        rowspan: record.rowspan,
+                        recordId: record.id,
+                        // class: "buttonText",
                     });
                     rulePool.push({
                         content:
@@ -152,6 +160,7 @@ export default {
                             ...positionPool.splice(0, 1),
                             ...qxNamePool.splice(0, 1),
                             ...qxDescPool.splice(0, 1),
+                            ...qxStatusPool.splice(0, 1),
                             {
                                 content: "--",
                                 rowspan: 1,
@@ -209,6 +218,7 @@ export default {
                                 ...positionPool.splice(0, 1),
                                 ...qxNamePool.splice(0, 1),
                                 ...qxDescPool.splice(0, 1),
+                                ...qxStatusPool.splice(0, 1),
                                 prjname,
                                 solution,
                                 czfaval,
@@ -232,7 +242,7 @@ export default {
         copyItem(item) {
             if (item !== "--") {
                 this.itemClipBoard = item.desc;
-                document.querySelector(".copyItem").click();
+                document.querySelector("#defectCopyItem").click();
                 this.$message.success("命令已复制到剪贴板");
             } else {
                 this.itemClipBoard = "";
@@ -302,7 +312,7 @@ export default {
                 this.wholeClipBoard = res.resdata
                     .map((item) => item.item)
                     .join("\n");
-                document.querySelector(".copyWhole").click();
+                document.querySelector("#defectCopyWhole").click();
             });
         },
     },

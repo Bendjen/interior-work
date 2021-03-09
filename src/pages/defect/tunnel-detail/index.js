@@ -13,7 +13,7 @@ export default {
             filename: "",
             chapterList: [],
             tunnelTab: 0,
-            moduleTab: "defectInfo",
+            moduleTab: "baseInfo",
         };
     },
 

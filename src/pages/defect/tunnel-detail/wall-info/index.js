@@ -45,6 +45,7 @@ export default {
                     title: "上传成功",
                     message: "所选文件已成功上传",
                 });
+                this.refresh();
             }
         },
 

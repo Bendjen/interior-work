@@ -26,16 +26,16 @@
                         v-model="moduleTab"
                         @tab-click="swicthModule"
                     >
-                        <el-tab-pane label="缺陷分析" name="defectInfo">
-                            <defect-info
-                                ref="defectInfo"
+                        <el-tab-pane label="基础数据" name="baseInfo">
+                            <base-info
+                                ref="baseInfo"
                                 :chapterid="chapterid"
                                 :fileid="fileid"
                             />
                         </el-tab-pane>
-                        <el-tab-pane label="基础数据" name="baseInfo">
-                            <base-info
-                                ref="baseInfo"
+                        <el-tab-pane label="缺陷分析" name="defectInfo">
+                            <defect-info
+                                ref="defectInfo"
                                 :chapterid="chapterid"
                                 :fileid="fileid"
                             />

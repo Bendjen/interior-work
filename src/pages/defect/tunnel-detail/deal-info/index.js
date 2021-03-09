@@ -1,5 +1,6 @@
 import SERVICE from "./service";
 import { Loading } from "element-ui";
+import { saveAs } from "file-saver";
 let uploading = null;
 
 export default {
@@ -80,6 +81,20 @@ export default {
 
         listenCommand(command) {
             this[command]();
+        },
+        exportExcel() {
+            SERVICE.exportExcel({
+                tid: this.fileid,
+            }).then((res) => {
+                saveAs(
+                    `/jtyh/mobile/busisafetycheck/download/${res.resdata.id}`,
+                    res.resdata.filename
+                );
+                this.$notify.success({
+                    title: "导出成功",
+                    message: "文件已开始下载",
+                });
+            });
         },
     },
 };
