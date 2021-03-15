@@ -101,8 +101,44 @@ export default {
         listenCommand(command) {
             this[command]();
         },
-        copyCad() {
-            SERVICE.fetchCad({ tid: this.chapterid }).then((res) => {
+        copyCad0() {
+            SERVICE.fetchCad({ tid: this.chapterid, type: 0 }).then((res) => {
+                if (res.resdata.length == 0) {
+                    return this.$message.error("无可导出命令");
+                }
+                this.wholeClipBoard = res.resdata
+                    .map((item) => item.item)
+                    .join("\n");
+
+                document.querySelector("#radarCopyWhole").click();
+            });
+        },
+        copyCad1() {
+            SERVICE.fetchCad({ tid: this.chapterid, type: 1 }).then((res) => {
+                if (res.resdata.length == 0) {
+                    return this.$message.error("无可导出命令");
+                }
+                this.wholeClipBoard = res.resdata
+                    .map((item) => item.item)
+                    .join("\n");
+
+                document.querySelector("#radarCopyWhole").click();
+            });
+        },
+        copyCad2() {
+            SERVICE.fetchCad({ tid: this.chapterid, type: 2 }).then((res) => {
+                if (res.resdata.length == 0) {
+                    return this.$message.error("无可导出命令");
+                }
+                this.wholeClipBoard = res.resdata
+                    .map((item) => item.item)
+                    .join("\n");
+
+                document.querySelector("#radarCopyWhole").click();
+            });
+        },
+        copyCad3() {
+            SERVICE.fetchCad({ tid: this.chapterid, type: 3 }).then((res) => {
                 if (res.resdata.length == 0) {
                     return this.$message.error("无可导出命令");
                 }

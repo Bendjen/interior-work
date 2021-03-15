@@ -5,7 +5,7 @@
             class="operation-button"
             style="margin-bottom:10px"
         >
-            <el-dropdown @command="listenCommand">
+            <el-dropdown @command="listenCommand" trigger="click">
                 <span class="el-dropdown-link">
                     <el-button
                         type="text"

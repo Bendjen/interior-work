@@ -5,7 +5,7 @@
             class="operation-button"
             style="margin-bottom:10px"
         >
-            <el-dropdown @command="listenCommand">
+            <el-dropdown @command="listenCommand" trigger="click">
                 <span class="el-dropdown-link">
                     <el-button
                         type="text"
@@ -14,8 +14,21 @@
                     ></el-button>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="copyCad"
-                        ><span id="copyBtn">复制雷达CAD</span></el-dropdown-item
+                    <el-dropdown-item command="copyCad0"
+                        ><span id="copyBtn">复制CAD： 总体</span></el-dropdown-item
+                    >
+                    <el-dropdown-item command="copyCad1"
+                        ><span id="copyBtn">复制CAD： B&lt;1/2D </span></el-dropdown-item
+                    >
+                    <el-dropdown-item command="copyCad2"
+                        ><span id="copyBtn"
+                            >复制CAD： 1/2D≤B&lt;3/4D</span
+                        ></el-dropdown-item
+                    >
+                    <el-dropdown-item command="copyCad3"
+                        ><span id="copyBtn"
+                            >复制CAD： 3/4D≤B&lt;D-5</span
+                        ></el-dropdown-item
                     >
                     <el-dropdown-item command="exportExcel"
                         ><span id="copyBtn">导出excel</span></el-dropdown-item

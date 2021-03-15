@@ -80,7 +80,7 @@ export default {
         serialize(inputList) {
             let list = [];
             let serializeList = Object.entries(
-                _.groupBy(inputList, (item) => item.detail.partdesc)
+                _.groupBy(inputList, (item) => item.detail.stakedesc)
             ).map(([position, children]) => {
                 return { position, children, rowspan: 0 };
             });
@@ -95,7 +95,7 @@ export default {
             serializeList.forEach((group, groupIndex) => {
                 let positionPool = [
                     {
-                        content: group.position,
+                        content: group.position || "",
                         rowspan: group.rowspan,
                     },
                 ];

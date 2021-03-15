@@ -5,7 +5,7 @@
             class="operation-button"
             style="margin-bottom:10px"
         >
-            <el-dropdown @command="listenCommand">
+            <el-dropdown @command="listenCommand" trigger="click">
                 <span class="el-dropdown-link">
                     <el-button
                         type="text"
@@ -20,7 +20,7 @@
                         >重新解析缺陷</el-dropdown-item
                     >
                     <el-dropdown-item command="copyCad"
-                        ><span id="copyBtn">复制所有CAD</span></el-dropdown-item
+                        ><span id="copyBtn">复制渗水及超限CAD</span></el-dropdown-item
                     >
                     <el-dropdown-item command="refresh"
                         ><span id="copyBtn">刷新</span></el-dropdown-item
