@@ -6,13 +6,34 @@
                 <span>返回文件列表</span>
             </el-button>
             <p>{{ title }}</p>
-            <el-button
+            <div>
+                <el-dropdown @command="listenCommand" trigger="click">
+                    <span class="el-dropdown-link">
+                        <span class="iconText">更多</span>
+                        <el-button
+                            type="text"
+                            style="font-size:20px"
+                            icon="el-icon-caret-bottom"
+                        >
+                        </el-button>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item command="openBidTable"
+                            >报价清单</el-dropdown-item
+                        >
+                        <el-dropdown-item command="updateChapter"
+                            >更新当前章节</el-dropdown-item
+                        >
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </div>
+            <!-- <el-button
                 v-if="chapterList.length > 0"
                 type="text"
                 size="large"
                 @click="updateChapter"
                 >更新当前章节</el-button
-            >
+            > -->
         </h1>
 
         <div v-if="chapterList.length > 0">
@@ -83,6 +104,7 @@
         <solution-config-edit ref="solutionEdit" @update="pageChange(page)" />
         <rule-edit ref="ruleEdit" @update="pageChange(page)" />
         <desc-edit ref="descEdit" @update="pageChange(page)" />
+        <bid-table :fileid="id" ref="bidTable" />
     </div>
 </template>
 <style lang="scss" src="./index.scss"></style>

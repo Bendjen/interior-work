@@ -1,9 +1,10 @@
 import SERVICE from "./service";
-import BaseInfo from "./base-info";
-import DefectInfo from "./defect-info";
-import WallInfo from "./wall-info";
-import RadarInfo from "./radar-info";
-import DealInfo from "./deal-info";
+import BaseInfo from "./modules/base-info";
+import DefectInfo from "./modules/defect-info";
+import WallInfo from "./modules/wall-info";
+import RadarInfo from "./modules/radar-info";
+import DealInfo from "./modules/deal-info";
+import BidTable from "../components/bid-table";
 
 export default {
     name: "tunnel-detail",
@@ -17,7 +18,14 @@ export default {
         };
     },
 
-    components: { BaseInfo, DefectInfo, WallInfo, RadarInfo, DealInfo },
+    components: {
+        BaseInfo,
+        DefectInfo,
+        WallInfo,
+        RadarInfo,
+        DealInfo,
+        BidTable,
+    },
 
     computed: {
         chapterid() {
@@ -54,7 +62,7 @@ export default {
         },
         swicthChapter() {
             this.$nextTick(() => {
-                console.log(this.moduleTab)
+                console.log(this.moduleTab);
                 this.$refs[this.moduleTab][this.tunnelTab].switch();
             });
         },
@@ -63,8 +71,14 @@ export default {
                 this.$refs[this.moduleTab][this.tunnelTab].switch();
             });
         },
-        refresh(){
+        refresh() {
             this.$refs[this.moduleTab][this.tunnelTab].refresh();
-        }
+        },
+        listenCommand(command) {
+            this[command]();
+        },
+        openBidTable() {
+            this.$refs.bidTable.open();
+        },
     },
 };

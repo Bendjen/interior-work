@@ -7,26 +7,40 @@
     box-sizing: border-box;
     box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
     background: #fff;
+
     .el-dropdown-link {
         cursor: pointer;
     }
+
+    .el-icon-caret-bottom {
+        font-size: 22px;
+    }
+
+    .iconText {
+        color: $blue;
+    }
+
     .emptyBox {
         height: 600px;
+
         i {
             font-size: 60px;
         }
+
         .text {
             font-size: 26px;
             padding-top: 20px;
             color: #909399;
         }
     }
-    .el-tabs--border-card>.el-tabs__content{
+
+    .el-tabs--border-card>.el-tabs__content {
         overflow: visible;
     }
-    .refreshIcon{
-        font-size:22px;
-        position:absolute;
+
+    .refreshIcon {
+        font-size: 22px;
+        position: absolute;
         right: 10px;
         top: -3px;
         top: -3px;

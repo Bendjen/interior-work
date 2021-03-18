@@ -3,6 +3,7 @@ import SERVICE from "@/pages/defect/service";
 import SolutionConfigEdit from "./dialogs/solution-edit";
 import RuleEdit from "./dialogs/rule-edit";
 import DescEdit from "./dialogs/desc-edit";
+import BidTable from "../../../components/bid-table";
 
 export default {
     name: "defect-info",
@@ -21,7 +22,7 @@ export default {
         title: { default: "", type: String },
     },
 
-    components: {  SolutionConfigEdit, RuleEdit, DescEdit },
+    components: { SolutionConfigEdit, RuleEdit, DescEdit, BidTable },
 
     watch: {
         id() {
@@ -222,6 +223,14 @@ export default {
         // openDetail(url) {
         //     this.$refs.defectDetail.open(url);
         // },
+
+        listenCommand(command) {
+            this[command]();
+        },
+        openBidTable() {
+            this.$refs.bidTable.open();
+        },
+
         updateChapter() {
             this.$confirm(
                 "缺陷解析将根据当前规则重新生成并覆盖原数据，是否继续？"

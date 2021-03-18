@@ -6,7 +6,22 @@
                 <span>返回文件列表</span>
             </el-button>
             <p>{{ filename }}</p>
-            <div></div>
+            <div>
+                <el-dropdown @command="listenCommand" trigger="click">
+                    <span class="el-dropdown-link">
+                         <span class="iconText">更多</span>
+                        <el-button
+                            type="text"
+                            icon="el-icon-caret-bottom"
+                        ></el-button>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item command="openBidTable"
+                            >报价清单</el-dropdown-item
+                        >
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </div>
         </h1>
         <div v-if="chapterList.length > 0" style="position:relative">
             <!-- <el-button type="text" class="refreshIcon" @click="refresh" icon="el-icon-refresh-left"></el-button> -->
@@ -72,6 +87,9 @@
             </svg>
             <span>该文件下无隧道</span>
         </div>
+
+        <bid-table :fileid="fileid" ref="bidTable"/>
+
         <el-backtop ref="topBtn" target=".right-side-container"></el-backtop>
     </div>
 </template>

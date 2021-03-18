@@ -52,6 +52,7 @@ export default {
             SERVICE.saveSolution({
                 ...this.info,
                 status: this.info.status === "" ? "0" : this.info.status,
+                status: this.info.signtype === "" ? "0" : this.info.signtype,
                 cfgtype: this.cfgtype,
             }).then((res) => {
                 this.$notify.success({
